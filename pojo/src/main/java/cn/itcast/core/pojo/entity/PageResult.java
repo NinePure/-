@@ -1,19 +1,13 @@
 package cn.itcast.core.pojo.entity;
 
-import cn.itcast.core.pojo.good.Brand;
-
 import java.io.Serializable;
 import java.util.List;
 
-/**
- * 分页对象
- */
-public class PageResult implements Serializable{
-
+public class PageResult<T> implements Serializable {
     private Long total;//总记录数
-    private List rows; //当前页结果
+    private List<T> rows;
 
-    public PageResult(Long total, List rows) {
+    public PageResult(Long total, List<T> rows) {
         this.total = total;
         this.rows = rows;
     }
@@ -30,7 +24,7 @@ public class PageResult implements Serializable{
         return rows;
     }
 
-    public void setRows(List rows) {
+    public void setRows(List<T> rows) {
         this.rows = rows;
     }
 }
