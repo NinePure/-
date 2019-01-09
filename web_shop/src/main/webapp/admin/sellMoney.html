@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- 页面meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>订单管理</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../plugins/adminLTE/css/AdminLTE.css">
+    <link rel="stylesheet" href="../plugins/adminLTE/css/skins/_all-skins.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../plugins/echarts/echarts.js"></script>
+
+    <!-- 引入angular的js -->
+    <script type="text/javascript" src="../plugins/angularjs/angular.min.js"></script>
+    <!-- 引入分页相关的JS和CSS -->
+    <script type="text/javascript" src="../plugins/angularjs/pagination.js"></script>
+    <link rel="stylesheet" href="../plugins/angularjs/pagination.css">
+
+    <script type="text/javascript" src="../js/base_pagination.js"></script>
+    <script type="text/javascript" src="../js/controller/baseController.js"></script>
+    <script type="text/javascript" src="../js/controller/sellMoneyController.js"></script>
+    <script type="text/javascript" src="../js/service/sellMoneyService.js"></script><!--order-->
+    <!--<script type="text/javascript" src="../js/service/itemCatService.js"></script>-->
+    <!--<script type="text/javascript" src="../js/service/uploadService.js"></script>  -->
+    <!--<script type="text/javascript" src="../js/service/typeTemplateService.js"></script>  -->
+    <!---->
+</head>
+
+<body class="hold-transition skin-red sidebar-mini" ng-app="pinyougou" ng-controller="sellMoneyController">
+<!--ng-init="findAll()"-->
+<!-- .box-body -->
+
+<div class="box-header with-border">
+    <h3 class="box-title">订单统计</h3>
+</div>
+
+<div class="box-body">
+
+    <!-- 数据表格 -->
+    <div class="table-box">
+
+        <!--工具栏-->
+        <div class="pull-left">
+            <div class="form-group form-inline">
+                <div class="btn-group">
+                    <a href="goods_edit.html" class="btn btn-default">新建</a>
+                    <button type="button" class="btn btn-default" title="删除" ng-click="dele()"><i
+                            class="fa fa-trash-o"></i> 删除
+                    </button>
+                    <button type="button" class="btn btn-default" title="提交审核"><i class="fa fa-check"></i> 提交审核</button>
+                    <button type="button" class="btn btn-default" title="屏蔽" onclick='confirm("你确认要屏蔽吗？")'><i
+                            class="fa fa-ban"></i> 屏蔽
+                    </button>
+                    <button type="button" class="btn btn-default" title="刷新" onclick="window.location.reload();"><i
+                            class="fa fa-refresh"></i> 刷新
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="box-tools pull-right">
+            <div class="has-feedback">
+
+
+                起始时间:<input type="date" ng-model="searchEntity.startTime">
+
+                截止时间：<input type="date" ng-model="searchEntity.endTime">
+                <button class="btn btn-default" ng-click="reloadList()">查询</button>
+            </div>
+        </div>
+        <!--工具栏/-->
+
+        <!--数据列表-->
+        <table id="dataList" class="table table-bordered table-striped table-hover dataTable">
+            <thead>
+            <tr>
+
+
+                <th class="sorting_asc">宝贝</th>
+                <th class="sorting">宝贝图片</th>
+                <th class="sorting">数量</th>
+                <th class="sorting">单价</th>
+                <th class="sorting">销售额</th>
+                <th class="sorting">上架状态</th>
+
+
+
+            </tr>
+
+            </thead>
+            <tbody>
+
+            <tr ng-repeat="entity in list">
+
+                <td>{{entity.name}}</td>
+                <td><img src="{{entity.imageUrl}}" style="width: 100px; height: 100px;"> </td>
+                <td>{{entity.num}}</td>
+                <td>{{entity.price}}</td>
+
+                <td>{{entity.totalPrice}}</td>
+
+                <td>
+                <span>
+                {{deleteStatus[entity.status]}}
+                </span>
+                </td>
+                <!--<td class="text-center">-->
+                    <!--<a class="btn bg-olive btn-xs" href="goods_edit.html#?id={{entity1.id}}">修改</a>-->
+                <!--</td>-->
+            </tr>
+            </tbody>
+        </table>
+        <!--数据列表/-->
+        显示每日销售额: <input type="checkbox" ng-model="myVar">
+        <div align="center" style="width: 600px; height:600px;">
+
+
+            <div ng-show="myVar" ng-model="sellNum" data-source='groupData' data-num="sellNum"  bar-charts  style="width: 100%;height: 80%;"></div>
+
+        </div>
+        <!--<div id="main" style="width: 1000px;height:600px;"></div>-->
+    </div>
+    <!-- 数据表格 /-->
+    <!-- 分页 -->
+    <tm-pagination conf="paginationConf"></tm-pagination>
+
+</div>
+<!-- /.box-body -->
+
+</body> <script type="text/javascript">
+    var app=angular.module('pinyougou',[]);
+    app.directive('barCharts', function () {
+        return {
+            restrict: 'AE',
+            scope: {
+                source: '=',
+                num: '='
+            },
+            template: '<div>这是折线图</div>',
+            controller: function ($scope) {
+            },
+            link: function (scope, element, attr) {
+                console.log(scope.source);
+                var chart = element.find('div')[0];
+                var parent = element['context'];
+                //    console.log(parent.clientHeight+":"+parent.clientWidth);
+                chart.style.width = parent.clientWidth + 'px';
+                chart.style.height = parent.clientHeight + 'px';
+
+                var myChart = echarts.init(chart);
+                var option = {
+                    xAxis: {
+                        type: 'category',
+                        boundaryGap: false,
+                        data: scope.source
+                    },
+                    yAxis: {
+                        type: 'value'
+                    },
+                    series: [{
+                        data: scope.num,
+                        type: 'line',
+                        areaStyle: {}
+                    }]
+                };
+                myChart.setOption(option);
+                myChart.resize();
+            }
+        };
+
+    })
+</script>
+
+<!--<script type="text/javascript">-->
+    <!--// 基于准备好的dom，初始化echarts实例-->
+    <!--var myChart = echarts.init(document.getElementById('main'));-->
+
+    <!--option = {-->
+        <!--xAxis: {-->
+            <!--type: 'category',-->
+            <!--boundaryGap: false,-->
+            <!--data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']-->
+        <!--},-->
+        <!--yAxis: {-->
+            <!--type: 'value'-->
+        <!--},-->
+        <!--series: [{-->
+            <!--data: [820, 932, 901, 934, 1290, 1330, 1320],-->
+            <!--type: 'line',-->
+            <!--areaStyle: {}-->
+        <!--}]-->
+    <!--};-->
+
+    <!--// 使用刚指定的配置项和数据显示图表。-->
+    <!--myChart.setOption(option);-->
+    <!--myChart.setOption({-->
+        <!--xAxis: {-->
+            <!--data: ["xixi","heh","lala"]-->
+        <!--},-->
+        <!--series: [{-->
+            <!--// 根据名字对应到相应的系列-->
+            <!--name: '销量',-->
+            <!--data: [10,20,30]-->
+        <!--}]-->
+    <!--});-->
+    <!--//通过DOM操作获取app对象-->
+    <!--var scope1=$('[ng-controller="sellMoneyController"]').scope();-->
+    <!--alert(scope1.sellNum);-->
+    <!--var element = angular.element(document.getElementById("pinyougou"));-->
+    <!--//得到app对象，可以获取app的controller-->
+    <!--var controller = element.controller();-->
+    <!--//得到app对象，可以获取app的$scope-->
+    <!--var scope = element.scope();-->
+    <!--//调用$scope中的方法-->
+    <!--console.log(scope.groupData);-->
+    <!--//调用方法后，可以重新绑定，在页面同步（可选）-->
+    <!--scope.$apply();-->
+
+
+<!--</script>-->
+
+</html>
