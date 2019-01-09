@@ -1,15 +1,27 @@
 package cn.itcast.core.service;
 
+import cn.itcast.core.dao.good.GoodsDao;
+import cn.itcast.core.dao.good.GoodsDescDao;
 import cn.itcast.core.dao.log.PayLogDao;
 import cn.itcast.core.dao.order.OrderDao;
 import cn.itcast.core.dao.order.OrderItemDao;
 import cn.itcast.core.pojo.entity.BuyerCart;
+import cn.itcast.core.pojo.entity.PageResult;
+import cn.itcast.core.pojo.entity.SellMoney;
+import cn.itcast.core.pojo.good.Goods;
+import cn.itcast.core.pojo.good.GoodsDesc;
+import cn.itcast.core.pojo.good.GoodsQuery;
 import cn.itcast.core.pojo.log.PayLog;
 import cn.itcast.core.pojo.order.Order;
 import cn.itcast.core.pojo.order.OrderItem;
+import cn.itcast.core.pojo.order.OrderItemQuery;
+import cn.itcast.core.pojo.order.OrderQuery;
 import cn.itcast.core.util.Constants;
 import cn.itcast.core.util.IdWorker;
 import com.alibaba.dubbo.config.annotation.Service;
+import com.alibaba.fastjson.JSON;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.opensaml.xml.signature.P;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -19,6 +31,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional
@@ -38,6 +51,11 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private IdWorker idWorker;
+    @Autowired
+    private GoodsDao goodsDao;
+
+    @Autowired
+    private GoodsDescDao goodsDescDao;
 
 
     @Override
@@ -140,6 +158,7 @@ public class OrderServiceImpl implements OrderService {
                     Order order = new Order();
                     order.setOrderId(Long.parseLong(orderId));
                     order.setStatus("1");
+                    order.setPaymentTime(new Date());
                     orderDao.updateByPrimaryKeySelective(order);
                 }
             }
@@ -148,4 +167,97 @@ public class OrderServiceImpl implements OrderService {
             redisTemplate.boundHashOps("payLog").delete(userName);
         }
     }
+    @Override
+    public PageResult<Order> search(String page, String rows, Order order) {
+        PageHelper.startPage(Integer.parseInt(page), Integer.parseInt(rows));
+        OrderQuery orderQuery = new OrderQuery();
+        if (order != null) {
+            OrderQuery.Criteria criteria = orderQuery.createCriteria();
+            criteria.andSellerIdEqualTo(order.getSellerId());
+            if (order.getUserId() != null && !"".equals(order.getUserId())) {
+                criteria.andUserIdLike("%" + order.getUserId() + "%");
+            }
+            if (order.getOrderId() != null && !"".equals(order.getOrderId())) {
+                criteria.andOrderIdEqualTo(order.getOrderId());
+            }
+            if (order.getStatus() != null && !"".equals(order.getStatus())) {
+                criteria.andStatusEqualTo(order.getStatus());
+            }
+        }
+        Page<Order> page1 = (Page<Order>) orderDao.selectByExample(orderQuery);
+        List<Order> result = page1.getResult();
+
+        if (result != null && result.size() > 0) {
+            for (Order order1 : result) {
+                Long orderId = order1.getOrderId();
+                OrderItemQuery orderItemQuery = new OrderItemQuery();
+                OrderItemQuery.Criteria criteria1 = orderItemQuery.createCriteria();
+                criteria1.andOrderIdEqualTo(orderId);
+                criteria1.andSellerIdEqualTo(order1.getSellerId());
+                List<OrderItem> orderItemList = orderItemDao.selectByExample(orderItemQuery);
+                order1.setOrderItemList(orderItemList);
+            }
+        }
+        PageResult<Order> pageResult = new PageResult<>(page1.getTotal(), result);
+        return pageResult;
+    }
+
+    @Override
+    public PageResult<SellMoney> findSellMoney(String page, String rows, Date startTime, Date endTime, String name) {
+        PageHelper.startPage(Integer.parseInt(page), Integer.parseInt(rows));
+        GoodsQuery goodsQuery=new GoodsQuery();
+        GoodsQuery.Criteria criteria2 = goodsQuery.createCriteria();
+        criteria2.andSellerIdEqualTo(name);
+        Page<Goods> goodsPage=(Page<Goods>)goodsDao.selectByExample(goodsQuery);
+        List<Goods> goodsList = goodsPage.getResult();
+        List<SellMoney> sellMoneyList = new ArrayList<>();
+        OrderQuery orderQuery = new OrderQuery();
+        OrderQuery.Criteria criteria = orderQuery.createCriteria();
+        if (startTime != null && endTime != null) {
+            criteria.andPaymentTimeBetween(startTime, endTime);
+        }
+        criteria.andSellerIdEqualTo(name);
+        List<Order> orders = orderDao.selectByExample(orderQuery);
+        Integer num=0;
+        BigDecimal bigDecimal=new BigDecimal("0");
+        for (Goods goods : goodsList) {
+            SellMoney sellMoney = new SellMoney();
+            sellMoney.setStatus(goods.getIsDelete());
+            sellMoney.setName(goods.getGoodsName());
+            sellMoney.setPrice(goods.getPrice());
+            GoodsDesc goodsDesc = goodsDescDao.selectByPrimaryKey(goods.getId());
+            String itemImages = goodsDesc.getItemImages();
+            List<Map> list = JSON.parseArray(itemImages, Map.class);
+            sellMoney.setImageUrl(String.valueOf(list.get(0).get("url")));
+            if (orders.size()>0){
+                for (Order order : orders) {
+                    OrderItemQuery orderItemQuery = new OrderItemQuery();
+                    OrderItemQuery.Criteria criteria1 = orderItemQuery.createCriteria();
+                    criteria1.andGoodsIdEqualTo(goods.getId());
+                    criteria1.andOrderIdEqualTo(order.getOrderId());
+                    List<OrderItem> orderItemList = orderItemDao.selectByExample(orderItemQuery);
+                    if (orderItemList.size()==0){
+                        sellMoney.setNum(0);
+                        sellMoney.setTotalPrice(new BigDecimal(0));
+                    }
+                    for (OrderItem orderItem : orderItemList) {
+                        num+=orderItem.getNum();
+                        bigDecimal = bigDecimal.add(orderItem.getTotalFee());
+                        sellMoney.setNum(num);
+                        sellMoney.setTotalPrice(bigDecimal);
+
+                    }
+                }
+            }else{
+                sellMoney.setNum(0);
+                sellMoney.setTotalPrice(new BigDecimal("0"));
+            }
+
+            sellMoneyList.add(sellMoney);
+        }
+
+
+        return new PageResult<SellMoney>(goodsPage.getTotal(),sellMoneyList);
+    }
+
 }

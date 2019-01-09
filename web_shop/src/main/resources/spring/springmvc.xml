@@ -9,8 +9,14 @@
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
     
     <context:property-placeholder location="classpath:config/application.properties" />
-	
-	<mvc:annotation-driven>
+	<bean id="converterService" class="org.springframework.context.support.ConversionServiceFactoryBean">
+		<property name="converters">
+			<set>
+				<bean class="cn.itcast.core.converter.StringToDateConverter"></bean>
+			</set>
+		</property>
+	</bean>
+	<mvc:annotation-driven conversion-service="converterService">
 	  <mvc:message-converters register-defaults="true">
 	    <bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">  
 	      <property name="supportedMediaTypes" value="application/json"/>
