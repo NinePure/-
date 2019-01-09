@@ -86,5 +86,17 @@ app.controller('cartController',function($scope,cartService){
 			}				
 		);		
 	}
-	
+    //添加收藏
+    $scope.addGoodsToCollect = function(itemId){
+        cartService.addGoodsToCollect(itemId).success(
+            function(response){
+                if(response.success){
+                    alert(response.message);
+                    $scope.findCartList();//刷新列表
+                }else {
+                    alert(response.message);
+                }
+            }
+        )
+    }
 });
