@@ -203,6 +203,33 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public PageResult<Order> searchByUserId(String page, String rows, Order order) {
+        PageHelper.startPage(Integer.parseInt(page), Integer.parseInt(rows));
+        OrderQuery orderQuery = new OrderQuery();
+        if (order != null) {
+            OrderQuery.Criteria criteria = orderQuery.createCriteria();
+            criteria.andUserIdEqualTo(order.getUserId());
+            if (order.getStatus() != null && !"".equals(order.getStatus())) {
+                criteria.andStatusEqualTo(order.getStatus());
+            }
+        }
+        Page<Order> page1 = (Page<Order>) orderDao.selectByExample(orderQuery);
+        List<Order> result = page1.getResult();
+        if (result != null && result.size() > 0) {
+            for (Order order1 : result) {
+                Long orderId = order1.getOrderId();
+                OrderItemQuery orderItemQuery = new OrderItemQuery();
+                OrderItemQuery.Criteria criteria1 = orderItemQuery.createCriteria();
+                criteria1.andOrderIdEqualTo(orderId);
+                List<OrderItem> orderItemList = orderItemDao.selectByExample(orderItemQuery);
+                order1.setOrderItemList(orderItemList);
+            }
+        }
+        PageResult<Order> pageResult = new PageResult<>(page1.getTotal(), result);
+        return pageResult;
+    }
+
+    @Override
     public PageResult<SellMoney> findSellMoney(String page, String rows, Date startTime, Date endTime, String name) {
         PageHelper.startPage(Integer.parseInt(page), Integer.parseInt(rows));
         GoodsQuery goodsQuery=new GoodsQuery();
