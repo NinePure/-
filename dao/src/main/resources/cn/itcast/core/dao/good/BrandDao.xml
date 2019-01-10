@@ -120,6 +120,9 @@
       <if test="firstChar != null" >
         first_char,
       </if>
+      <if test="brStatus != null" >
+        br_status,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -130,6 +133,9 @@
       </if>
       <if test="firstChar != null" >
         #{firstChar,jdbcType=VARCHAR},
+      </if>
+      <if test="brStatus != null" >
+        #{brStatus,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
