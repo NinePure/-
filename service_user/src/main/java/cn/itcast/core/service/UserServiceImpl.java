@@ -1,7 +1,9 @@
 package cn.itcast.core.service;
 
 import cn.itcast.core.dao.user.UserDao;
+import cn.itcast.core.pojo.entity.UserSpecEntity;
 import cn.itcast.core.pojo.user.User;
+import cn.itcast.core.pojo.user.UserQuery;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.alibaba.fastjson.JSON;
 import org.apache.activemq.command.ActiveMQQueue;
@@ -15,6 +17,10 @@ import javax.jms.JMSException;
 import javax.jms.MapMessage;
 import javax.jms.Message;
 import javax.jms.Session;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -94,6 +100,28 @@ public class UserServiceImpl implements UserService {
     @Override
     public void add(User user) {
         userDao.insertSelective(user);
+    }
+
+    @Override
+    public void addUserSpec(String username,UserSpecEntity userSpecEntity) {
+        User user = new User();
+        user.setUsername(username);
+        user.setNickName(userSpecEntity.getNickName());
+        user.setSex(userSpecEntity.getGender());
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date();
+        try {
+            date = dateFormat.parse(userSpecEntity.getYear() + "-" + userSpecEntity.getMonth() + "-" + userSpecEntity.getDay());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        user.setBirthday(date);
+        user.setLocation(userSpecEntity.getProvince() + userSpecEntity.getCity() + userSpecEntity.getDistrict());
+        user.setProfession(userSpecEntity.getJob());
+        UserQuery userQuery = new UserQuery();
+        UserQuery.Criteria criteria = userQuery.createCriteria();
+        criteria.andUsernameEqualTo(username);
+        userDao.updateByExampleSelective(user, userQuery);
     }
 
     public static void main(String[] args) {

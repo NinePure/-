@@ -1,8 +1,11 @@
 package cn.itcast.core.pojo.entity;
 
+import javassist.SerialVersionUID;
+
+import java.io.Serializable;
 import java.util.Date;
 
-public class UserSpecEntity {
+public class UserSpecEntity implements Serializable {
     private String nickName;
     private String gender;
     private String year;

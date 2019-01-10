@@ -433,4 +433,20 @@ public class User implements Serializable {
         result = prime * result + ((getCountWeek() == null) ? 0 : getCountWeek().hashCode());
         return result;
     }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getProfession() {
+        return profession;
+    }
+
+    public void setProfession(String profession) {
+        this.profession = profession;
+    }
 }
