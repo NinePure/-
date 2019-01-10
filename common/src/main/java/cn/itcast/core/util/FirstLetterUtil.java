@@ -99,8 +99,10 @@ public class FirstLetterUtil {
             return 0;
         }
     }
-    public static void main(String s[]) {
-        System.out.print(getFirstLetter("POP，世界！我爱你！").toUpperCase());// 获取文字首字母的拼音
-    }
+//    public static void main(String s[]) {
+////        System.out.print(getFirstLetter("POP，世界！我爱你！").toUpperCase());// 获取文字首字母的拼音
+//        String str =getFirstLetter("POP，世界！我爱你！").toUpperCase();
+//        System.out.println(str.charAt(0));
+//    }
 
 }
