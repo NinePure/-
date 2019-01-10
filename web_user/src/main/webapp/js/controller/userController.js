@@ -1,7 +1,22 @@
  //控制层 
-app.controller('userController' ,function($scope,$controller   ,userService){	
-	
+app.controller('userController' ,function($scope,$controller   ,userService,loginService){
+    $controller('baseController',{$scope:$scope});//继承
 	//注册用户
+    $scope.showName=function(){
+        loginService.showName().success(
+            function(response){
+                $scope.loginName=response.loginName;
+            }
+        );
+    }
+    $scope.addSpec=function(){
+        userService.addSpec($scope.entity).success(
+            function(response){
+                alert(response.message);
+            }
+        );
+    }
+    //注册
 	$scope.reg=function(){
 		
 		//比较两次输入的密码是否一致

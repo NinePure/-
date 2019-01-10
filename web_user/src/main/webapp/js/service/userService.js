@@ -33,5 +33,10 @@ app.service('userService',function($http){
 	this.sendCode=function(phone){
 		return $http.get('../user/sendCode.do?phone='+phone);
 	}
+	//添加用户详情
+	this.addSpec=function (entity) {
+        alert(entity.birthday)
+        return $http.post('../user/addSpec.do',entity);
+    }
 	
 });

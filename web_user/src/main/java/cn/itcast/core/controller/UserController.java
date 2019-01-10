@@ -1,6 +1,7 @@
 package cn.itcast.core.controller;
 
 import cn.itcast.core.pojo.entity.Result;
+import cn.itcast.core.pojo.entity.UserSpecEntity;
 import cn.itcast.core.pojo.user.User;
 import cn.itcast.core.service.UserService;
 import cn.itcast.core.util.PhoneFormatCheckUtils;
@@ -67,6 +68,12 @@ public class UserController {
             e.printStackTrace();
             return  new Result(false, "注册失败!");
         }
+    }
+
+    @RequestMapping("/addSpec")
+    public Result addSpec(@RequestBody UserSpecEntity userSpecEntity) {
+        System.out.println(userSpecEntity);
+        return null;
     }
 
 }

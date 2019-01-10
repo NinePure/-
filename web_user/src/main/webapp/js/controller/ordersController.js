@@ -4,9 +4,6 @@ app.controller('ordersController' ,function($scope,$controller,ordersService,log
 	$controller('baseController',{$scope:$scope});//继承
 	// $controller('indexController',{$scope:$scope});//继承
 
-
-    $scope.searchEntity={};//定义搜索对象
-
     $scope.showName=function(){
         loginService.showName().success(
             function(response){
@@ -14,6 +11,7 @@ app.controller('ordersController' ,function($scope,$controller,ordersService,log
             }
         );
     }
+    $scope.searchEntity={};//定义搜索对象
     //搜索
     $scope.search=function(page,rows){
     	ordersService.search(page,rows,$scope.searchEntity).success(

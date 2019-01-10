@@ -21,7 +21,6 @@ public class OrdersController {
         String userName = SecurityContextHolder.getContext().getAuthentication().getName();
         order.setUserId(userName);
         PageResult<Order> pageResult = orderService.searchByUserId(String.valueOf(page), String.valueOf(rows), order);
-        System.out.println(111111);
         return pageResult;
     }
 }

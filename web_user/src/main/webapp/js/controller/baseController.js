@@ -1,4 +1,5 @@
 app.controller("baseController",function($scope){
+
 	// 分页的配置的信息
 	$scope.paginationConf = {
 		 currentPage: 1, // 当前页数
