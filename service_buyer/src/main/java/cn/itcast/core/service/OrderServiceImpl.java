@@ -2,6 +2,7 @@ package cn.itcast.core.service;
 
 import cn.itcast.core.dao.good.GoodsDao;
 import cn.itcast.core.dao.good.GoodsDescDao;
+import cn.itcast.core.dao.item.ItemDao;
 import cn.itcast.core.dao.log.PayLogDao;
 import cn.itcast.core.dao.order.OrderDao;
 import cn.itcast.core.dao.order.OrderItemDao;
@@ -11,6 +12,8 @@ import cn.itcast.core.pojo.entity.SellMoney;
 import cn.itcast.core.pojo.good.Goods;
 import cn.itcast.core.pojo.good.GoodsDesc;
 import cn.itcast.core.pojo.good.GoodsQuery;
+import cn.itcast.core.pojo.item.Item;
+import cn.itcast.core.pojo.item.ItemQuery;
 import cn.itcast.core.pojo.log.PayLog;
 import cn.itcast.core.pojo.order.Order;
 import cn.itcast.core.pojo.order.OrderItem;
@@ -57,6 +60,8 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private GoodsDescDao goodsDescDao;
 
+    @Autowired
+    private ItemDao itemDao;
 
     @Override
     public void add(Order order) {
@@ -222,9 +227,17 @@ public class OrderServiceImpl implements OrderService {
                 OrderItemQuery.Criteria criteria1 = orderItemQuery.createCriteria();
                 criteria1.andOrderIdEqualTo(orderId);
                 List<OrderItem> orderItemList = orderItemDao.selectByExample(orderItemQuery);
+                for (OrderItem orderItem : orderItemList) {
+                    ItemQuery itemQuery = new ItemQuery();
+                    ItemQuery.Criteria criteria = itemQuery.createCriteria();
+                    criteria.andTitleEqualTo(orderItem.getTitle());
+                    List<Item> itemList = itemDao.selectByExample(itemQuery);
+                    orderItem.setItemSpec(itemList.get(0).getSpec());
+                }
                 order1.setOrderItemList(orderItemList);
             }
         }
+
         PageResult<Order> pageResult = new PageResult<>(page1.getTotal(), result);
         return pageResult;
     }

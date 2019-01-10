@@ -9,6 +9,7 @@ public class Order implements Serializable {
     /**
      * 订单id
      */
+
     private Long orderId;
 
     private List<OrderItem> orderItemList;
