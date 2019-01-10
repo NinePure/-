@@ -124,6 +124,9 @@
       <if test="typeId != null" >
         type_id,
       </if>
+      <if test="status != null" >
+        status,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -137,6 +140,9 @@
       </if>
       <if test="typeId != null" >
         #{typeId,jdbcType=BIGINT},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
