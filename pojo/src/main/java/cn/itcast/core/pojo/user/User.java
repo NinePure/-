@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class User implements Serializable {
+    private String location;
+    private String profession;
     private Long id;
 
     /**
