@@ -48,4 +48,49 @@ public class ItemCatServiceImpl implements ItemCatService {
     public List<ItemCat> findAll() {
         return catDao.selectByExample(null);
     }
+
+
+
+
+
+    //    添加分类申请
+    @Override
+    public Boolean save(String itemcat, Long id) {
+//               更据名字条件查询是否分类存在
+        ItemCatQuery query = new ItemCatQuery();
+        ItemCatQuery.Criteria criteria = query.createCriteria();
+        criteria.andNameEqualTo(itemcat);
+        List<ItemCat> itemCatList = catDao.selectByExample(query);
+
+//        如果name和id都为空则是一级分类,创建分类
+        if (itemCatList==null && id==null){
+            //  如果返回的集合为空就创建
+            ItemCat itemCat = new ItemCat();
+            itemCat.setParentId(0L);
+            itemCat.setName(itemcat);
+            itemCat.setStatus("0");
+            itemCat.setTypeId(35L);
+            //        保存数据到数据库
+            catDao.insertSelective(itemCat);
+            return true;
+        }else if (itemCatList!=null && id==null){
+//            如果返回的集合不是空而id是空说明一级分类已经存在无法创建
+            return false;
+        }else if (itemCatList==null && id!=null){
+//            如果返回的集合是空,而返回的id不是空说明是子级数据.
+            ItemCat itemCat = new ItemCat();
+            itemCat.setParentId(id);
+            itemCat.setName(itemcat);
+            itemCat.setStatus("0");
+            itemCat.setTypeId(35L);
+            //        保存数据到数据库
+            catDao.insertSelective(itemCat);
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+
+
 }
