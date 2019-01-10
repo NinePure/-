@@ -23,6 +23,8 @@ public class ItemCat implements Serializable {
      */
     private Long typeId;
 
+
+    //状态
     private String status;
 
     public String getStatus() {
