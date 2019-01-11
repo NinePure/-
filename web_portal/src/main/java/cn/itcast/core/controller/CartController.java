@@ -106,5 +106,30 @@ public class CartController {
 
     }
 
+    /**
+     * 添加单个商品到收藏
+     * @param itemId
+     * @return
+     */
+    @RequestMapping("/addGoodsToCollect")
+    public Result addGoodsToCollect(Long itemId){
+        try {
+            //1.获取当前用户名
+            String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+            //2.判断是否登录
+            if (userName == "anonymousUser" || "".equals(userName)){
+               return new Result(false,"登陆添加到收藏中心");
+            }else {
+                //3.用户已经登录 将商品添加到redis中
+                cartService.addGoodsToConllect(userName,itemId);
+                //4.删除购物车中的该商品
+                cartService.delGoodsFromRedis(userName,itemId);
+            }
+            return new Result(true,"添加收藏成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Result(false,"关注失败");
+        }
+    }
 
 }

@@ -35,6 +35,10 @@ app.service('cartService',function($http){
 	this.submitOrder=function(order){
 		return $http.post('order/add.do',order);		
 	}
-	
-	
+
+
+    //添加商品到收藏
+    this.addGoodsToCollect = function(itemId){
+        return $http.post('cart/addGoodsToCollect.do?itemId='+itemId);
+    }
 });

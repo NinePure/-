@@ -50,6 +50,11 @@ public class orderServiceImpl implements OrderService {
     }
 
     @Override
+    public PageResult<Order> searchByUserId(String page, String rows, Order order) {
+        return null;
+    }
+
+    @Override
     public PageResult <SellMoney> findSellMoney(String page, String rows, Date startTime, Date endTime, String name) {
         return null;
     }

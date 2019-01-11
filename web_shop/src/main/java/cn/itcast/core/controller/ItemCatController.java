@@ -1,5 +1,6 @@
 package cn.itcast.core.controller;
 
+import cn.itcast.core.pojo.entity.Result;
 import cn.itcast.core.pojo.item.ItemCat;
 import cn.itcast.core.service.ItemCatService;
 import com.alibaba.dubbo.config.annotation.Reference;
@@ -39,4 +40,5 @@ public class ItemCatController {
     public  List<ItemCat> findAll() {
         return catService.findAll();
     }
+
 }

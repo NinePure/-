@@ -1,10 +1,12 @@
 package cn.itcast.core.controller;
 
 import cn.itcast.core.pojo.entity.Result;
+import cn.itcast.core.pojo.entity.UserSpecEntity;
 import cn.itcast.core.pojo.user.User;
 import cn.itcast.core.service.UserService;
 import cn.itcast.core.util.PhoneFormatCheckUtils;
 import com.alibaba.dubbo.config.annotation.Reference;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -66,6 +68,18 @@ public class UserController {
         } catch (Exception e) {
             e.printStackTrace();
             return  new Result(false, "注册失败!");
+        }
+    }
+
+    @RequestMapping("/addSpec")
+    public Result addSpec(@RequestBody UserSpecEntity userSpecEntity) {
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+        try {
+            userService.addUserSpec(name, userSpecEntity);
+            return new Result(true, "保存成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Result(false, "保存失败");
         }
     }
 

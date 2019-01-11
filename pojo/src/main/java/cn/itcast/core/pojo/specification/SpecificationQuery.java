@@ -243,6 +243,76 @@ public class SpecificationQuery {
             addCriterion("spec_name not between", value1, value2, "specName");
             return (Criteria) this;
         }
+
+        public Criteria andSpecStatusIsNull() {
+            addCriterion("spec_status is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpecStatusIsNotNull() {
+            addCriterion("spec_status is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpecStatusEqualTo(String value) {
+            addCriterion("spec_status =", value, "specStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpecStatusNotEqualTo(String value) {
+            addCriterion("spec_status <>", value, "specStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpecStatusGreaterThan(String value) {
+            addCriterion("spec_status >", value, "specStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpecStatusGreaterThanOrEqualTo(String value) {
+            addCriterion("spec_status >=", value, "specStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpecStatusLessThan(String value) {
+            addCriterion("spec_status <", value, "specStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpecStatusLessThanOrEqualTo(String value) {
+            addCriterion("spec_status <=", value, "specStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpecStatusLike(String value) {
+            addCriterion("spec_status like", value, "specStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpecStatusNotLike(String value) {
+            addCriterion("spec_status not like", value, "specStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpecStatusIn(List<String> values) {
+            addCriterion("spec_status in", values, "specStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpecStatusNotIn(List<String> values) {
+            addCriterion("spec_status not in", values, "specStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpecStatusBetween(String value1, String value2) {
+            addCriterion("spec_status between", value1, value2, "specStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andSpecStatusNotBetween(String value1, String value2) {
+            addCriterion("spec_status not between", value1, value2, "specStatus");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

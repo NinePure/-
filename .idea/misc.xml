@@ -5,10 +5,12 @@
     <file type="web" url="file://$PROJECT_DIR$/service_buyer" />
     <file type="web" url="file://$PROJECT_DIR$/service_page" />
     <file type="web" url="file://$PROJECT_DIR$/service_search" />
+    <file type="web" url="file://$PROJECT_DIR$/service_seckill" />
     <file type="web" url="file://$PROJECT_DIR$/service_sellergoods" />
     <file type="web" url="file://$PROJECT_DIR$/service_user" />
     <file type="web" url="file://$PROJECT_DIR$/web_manager" />
     <file type="web" url="file://$PROJECT_DIR$/web_portal" />
+    <file type="web" url="file://$PROJECT_DIR$/web_seckill" />
     <file type="web" url="file://$PROJECT_DIR$/web_shop" />
     <file type="web" url="file://$PROJECT_DIR$/web_user" />
   </component>

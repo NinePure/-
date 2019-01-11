@@ -20,4 +20,9 @@ public interface SpecService {
     public void  delete(Long[] ids);
 
     public List<Map> selectOptionList();
+
+    /**
+     * 规格审核
+     */
+    public void updateStatus(Long[] ids, String status);
 }

@@ -2,10 +2,10 @@ package cn.itcast.core.dao.specification;
 
 import cn.itcast.core.pojo.specification.Specification;
 import cn.itcast.core.pojo.specification.SpecificationQuery;
+import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 import java.util.Map;
-
-import org.apache.ibatis.annotations.Param;
 
 public interface SpecificationDao {
     int countByExample(SpecificationQuery example);
@@ -30,5 +30,5 @@ public interface SpecificationDao {
 
     int updateByPrimaryKey(Specification record);
 
-    public List<Map> selectOptionList();
+    List<Map> selectOptionList();
 }

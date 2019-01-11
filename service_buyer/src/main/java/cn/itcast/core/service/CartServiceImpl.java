@@ -180,4 +180,49 @@ public class CartServiceImpl implements CartService {
         }
         return redisCartList;
     }
+
+    /**
+     * 添加单个产品到收藏
+     * @param itemid
+     */
+    @Override
+    public void addGoodsToConllect(String userName,Long itemid) {
+        //1.通过id获取商品详情  将数据添加到集合中
+        List<Item> itemList = new ArrayList<>();
+        Item item = itemDao.selectByPrimaryKey(itemid);
+        itemList.add(item);
+        //2.将数据存储到redis中
+        redisTemplate.boundHashOps(Constants.COLLECT_LIST_REDIS).put(userName,itemList);
+    }
+
+    /**
+     * 将商品数据从redis中删除
+     * @param userName
+     * @param itemid
+     */
+    @Override
+    public void delGoodsFromRedis(String userName, Long itemid) {
+        //获取redis中购物车列表
+        List<BuyerCart> cartList = (List<BuyerCart>) redisTemplate.boundHashOps(Constants.CART_LIST_REDIS).get(userName);
+        //根据善品的库存id删除购物车明细中的该商品
+        if (cartList!=null){
+            List<BuyerCart> buyerCarts = new ArrayList<>();
+            List<OrderItem> orderItems = new ArrayList<>();
+            //遍历购物车集合
+            for (BuyerCart buyerCart : cartList) {
+                //取出购物车的明细
+                List<OrderItem> orderItemList = buyerCart.getOrderItemList();
+                //当购物车明细商品中的id和传入的库存id相同时删除
+                for (OrderItem orderItem : orderItemList) {
+                    if (!itemid.equals(orderItem.getItemId())){
+                        orderItems.add(orderItem);
+                    }
+                }
+                buyerCart.setOrderItemList(orderItems);
+                buyerCarts.add(buyerCart);
+            }
+            //将更新后的购物车集合重新存储到redis中
+            redisTemplate.boundHashOps(Constants.CART_LIST_REDIS).put(userName,buyerCarts);
+        }
+    }
 }

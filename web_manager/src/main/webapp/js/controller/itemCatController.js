@@ -2,6 +2,25 @@
 app.controller('itemCatController' ,function($scope,$controller   ,itemCatService){	
 	
 	$controller('baseController',{$scope:$scope});//继承
+
+    // 显示状态
+    $scope.status = ["未审核","审核通过","审核未通过","关闭"];
+    //=======================
+
+
+
+    //// 审核的方法:
+    $scope.updateStatus = function(status){
+        itemCatService.updateStatus($scope.selectIds,status).success(function(response){
+            if(response.success){
+                $scope.reloadList();//刷新列表
+                $scope.selectIds = [];
+            }else{
+                alert(response.message);
+            }
+        });
+    }
+
 	
     //读取列表数据绑定到表单中  
 	$scope.findAll=function(){
@@ -107,15 +126,5 @@ app.controller('itemCatController' ,function($scope,$controller   ,itemCatServic
 		
 		$scope.findByParentId(p_entity.id);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-    
+
 });	

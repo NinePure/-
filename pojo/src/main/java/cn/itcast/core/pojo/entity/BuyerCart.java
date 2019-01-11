@@ -1,6 +1,7 @@
 package cn.itcast.core.pojo.entity;
 
 import cn.itcast.core.pojo.order.OrderItem;
+import javassist.SerialVersionUID;
 
 import java.io.Serializable;
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.List;
  */
 public class BuyerCart implements Serializable {
 
+    private static final long serialVersionUID = 8202946432087600914L;
     private String sellerId;//商家ID
     private String sellerName;//商家名称
     private List<OrderItem> orderItemList;//购物车明细

@@ -13,11 +13,13 @@
         <module name="service_buyer" />
         <module name="service_page" />
         <module name="service_search" />
+        <module name="service_seckill" />
         <module name="service_sellergoods" />
         <module name="service_user" />
         <module name="solr_util" />
         <module name="web_manager" />
         <module name="web_portal" />
+        <module name="web_seckill" />
         <module name="web_shop" />
         <module name="web_user" />
       </profile>
@@ -31,11 +33,13 @@
       <module name="service_buyer" target="1.7" />
       <module name="service_page" target="1.7" />
       <module name="service_search" target="1.7" />
+      <module name="service_seckill" target="1.7" />
       <module name="service_sellergoods" target="1.7" />
       <module name="service_user" target="1.7" />
       <module name="solr_util" target="1.5" />
       <module name="web_manager" target="1.7" />
       <module name="web_portal" target="1.7" />
+      <module name="web_seckill" target="1.7" />
       <module name="web_shop" target="1.7" />
       <module name="web_user" target="1.7" />
     </bytecodeTargetLevel>
