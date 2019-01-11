@@ -2,8 +2,9 @@ package cn.itcast.core.dao.good;
 
 import cn.itcast.core.pojo.good.GoodsDesc;
 import cn.itcast.core.pojo.good.GoodsDescQuery;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface GoodsDescDao {
     int countByExample(GoodsDescQuery example);

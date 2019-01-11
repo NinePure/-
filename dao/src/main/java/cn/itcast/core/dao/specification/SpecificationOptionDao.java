@@ -2,8 +2,9 @@ package cn.itcast.core.dao.specification;
 
 import cn.itcast.core.pojo.specification.SpecificationOption;
 import cn.itcast.core.pojo.specification.SpecificationOptionQuery;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface SpecificationOptionDao {
     int countByExample(SpecificationOptionQuery example);

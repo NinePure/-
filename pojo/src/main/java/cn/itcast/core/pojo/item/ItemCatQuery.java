@@ -363,6 +363,76 @@ public class ItemCatQuery {
             addCriterion("type_id not between", value1, value2, "typeId");
             return (Criteria) this;
         }
+
+        public Criteria andCatStatusIsNull() {
+            addCriterion("cat_status is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCatStatusIsNotNull() {
+            addCriterion("cat_status is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCatStatusEqualTo(String value) {
+            addCriterion("cat_status =", value, "catStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andCatStatusNotEqualTo(String value) {
+            addCriterion("cat_status <>", value, "catStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andCatStatusGreaterThan(String value) {
+            addCriterion("cat_status >", value, "catStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andCatStatusGreaterThanOrEqualTo(String value) {
+            addCriterion("cat_status >=", value, "catStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andCatStatusLessThan(String value) {
+            addCriterion("cat_status <", value, "catStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andCatStatusLessThanOrEqualTo(String value) {
+            addCriterion("cat_status <=", value, "catStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andCatStatusLike(String value) {
+            addCriterion("cat_status like", value, "catStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andCatStatusNotLike(String value) {
+            addCriterion("cat_status not like", value, "catStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andCatStatusIn(List<String> values) {
+            addCriterion("cat_status in", values, "catStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andCatStatusNotIn(List<String> values) {
+            addCriterion("cat_status not in", values, "catStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andCatStatusBetween(String value1, String value2) {
+            addCriterion("cat_status between", value1, value2, "catStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andCatStatusNotBetween(String value1, String value2) {
+            addCriterion("cat_status not between", value1, value2, "catStatus");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

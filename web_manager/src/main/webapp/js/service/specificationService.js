@@ -1,6 +1,11 @@
 //服务层
 app.service('specificationService',function($http){
-	    	
+
+    //审核状态
+    this.updateStatus = function(ids,status){
+        return $http.get('../specification/updateStatus.do?ids='+ids+"&status="+status);
+    }
+
 	//读取列表数据绑定到表单中
 	this.findAll=function(){
 		return $http.get('../specification/findAll.do');		

@@ -22,5 +22,11 @@ public interface BrandService {
 
     public void delete(Long[] ids);
 
+    /**
+     * 审核
+     * @param ids
+     * @param Status
+     */
+    public void updateStatus(Long[] ids, String Status);
 
 }
