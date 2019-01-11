@@ -21,8 +21,8 @@
 	<script type="text/javascript" src="js/service/loginService.js"></script>
 	<!--<script type="text/javascript" src="js/controller/indexController.js"></script>-->
 	<script type="text/javascript" src="js/controller/baseController.js"></script>
-	<script type="text/javascript" src="js/controller/ordersController.js"></script>
-	<script type="text/javascript" src="js/service/ordersService.js"></script>
+	<script type="text/javascript" src="js/service/uploadService.js"></script>
+
 </head>
 
 <body class="hold-transition skin-red sidebar-mini" ng-app="pinyougou" ng-controller="userController" ng-init="showName()">
@@ -301,10 +301,16 @@ $(function(){
 
                                 <div class="new-photo">
                                     <p>当前头像：</p>
-                                    <div class="upload">
-                                        <img id="imgShow_WU_FILE_0" width="100" height="100" src="img/_/photo_icon.png" alt="">
-                                        <input type="file" id="up_img_WU_FILE_0" />
-                                    </div>
+									<div class="upload" id="uploadModal">
+										<img id="imgShow_WU_FILE_0" width="100" height="100" src="img/_/photo_icon.png"
+											 alt="">
+										<td>
+											<input type="file" id="up_img_WU_FILE_0"/>
+											<button type="submit" ng-click="uploadPic()" class="sui-btn btn-primary">
+												上传
+											</button>
+										</td>
+									</div>
 
                                 </div>
                             </div>

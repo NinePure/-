@@ -13,4 +13,6 @@ public interface UserService {
     public  void  add(User user);
 
     public  void  addUserSpec(String username,UserSpecEntity userSpecEntity);
+
+    void addHeadPic(String name, String path);
 }

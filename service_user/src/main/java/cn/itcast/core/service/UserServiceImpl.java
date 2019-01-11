@@ -124,6 +124,17 @@ public class UserServiceImpl implements UserService {
         userDao.updateByExampleSelective(user, userQuery);
     }
 
+    @Override
+    public void addHeadPic(String name,String path) {
+        User user = new User();
+        user.setUsername(name);
+        user.setHeadPic(path);
+        UserQuery userQuery = new UserQuery();
+        UserQuery.Criteria criteria = userQuery.createCriteria();
+        criteria.andUsernameEqualTo(name);
+        userDao.updateByExampleSelective(user, userQuery);
+    }
+
     public static void main(String[] args) {
         StringBuffer sb = new StringBuffer();
         for(int i = 1; i< 7; i++) {
