@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class User implements Serializable {
+    private String location;
+    private String profession;
     private Long id;
 
     /**
@@ -107,6 +109,21 @@ public class User implements Serializable {
      * 最后登录时间
      */
     private Date lastLoginTime;
+
+    /**
+     * 用户冻结后无法登陆,下单(1冻结 0正常)
+     */
+    private String isFrozen;
+
+    /**
+     * 登录一周前时间
+     */
+    private Date loginTimeWeek;
+
+    /**
+     * 周登录次数
+     */
+    private String countWeek;
 
     private static final long serialVersionUID = 1L;
 
@@ -286,6 +303,30 @@ public class User implements Serializable {
         this.lastLoginTime = lastLoginTime;
     }
 
+    public String getIsFrozen() {
+        return isFrozen;
+    }
+
+    public void setIsFrozen(String isFrozen) {
+        this.isFrozen = isFrozen == null ? null : isFrozen.trim();
+    }
+
+    public Date getLoginTimeWeek() {
+        return loginTimeWeek;
+    }
+
+    public void setLoginTimeWeek(Date loginTimeWeek) {
+        this.loginTimeWeek = loginTimeWeek;
+    }
+
+    public String getCountWeek() {
+        return countWeek;
+    }
+
+    public void setCountWeek(String countWeek) {
+        this.countWeek = countWeek == null ? null : countWeek.trim();
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -314,6 +355,9 @@ public class User implements Serializable {
         sb.append(", experienceValue=").append(experienceValue);
         sb.append(", birthday=").append(birthday);
         sb.append(", lastLoginTime=").append(lastLoginTime);
+        sb.append(", isFrozen=").append(isFrozen);
+        sb.append(", loginTimeWeek=").append(loginTimeWeek);
+        sb.append(", countWeek=").append(countWeek);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
@@ -332,27 +376,30 @@ public class User implements Serializable {
         }
         User other = (User) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getUsername() == null ? other.getUsername() == null : this.getUsername().equals(other.getUsername()))
-            && (this.getPassword() == null ? other.getPassword() == null : this.getPassword().equals(other.getPassword()))
-            && (this.getPhone() == null ? other.getPhone() == null : this.getPhone().equals(other.getPhone()))
-            && (this.getEmail() == null ? other.getEmail() == null : this.getEmail().equals(other.getEmail()))
-            && (this.getCreated() == null ? other.getCreated() == null : this.getCreated().equals(other.getCreated()))
-            && (this.getUpdated() == null ? other.getUpdated() == null : this.getUpdated().equals(other.getUpdated()))
-            && (this.getSourceType() == null ? other.getSourceType() == null : this.getSourceType().equals(other.getSourceType()))
-            && (this.getNickName() == null ? other.getNickName() == null : this.getNickName().equals(other.getNickName()))
-            && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
-            && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
-            && (this.getHeadPic() == null ? other.getHeadPic() == null : this.getHeadPic().equals(other.getHeadPic()))
-            && (this.getQq() == null ? other.getQq() == null : this.getQq().equals(other.getQq()))
-            && (this.getAccountBalance() == null ? other.getAccountBalance() == null : this.getAccountBalance().equals(other.getAccountBalance()))
-            && (this.getIsMobileCheck() == null ? other.getIsMobileCheck() == null : this.getIsMobileCheck().equals(other.getIsMobileCheck()))
-            && (this.getIsEmailCheck() == null ? other.getIsEmailCheck() == null : this.getIsEmailCheck().equals(other.getIsEmailCheck()))
-            && (this.getSex() == null ? other.getSex() == null : this.getSex().equals(other.getSex()))
-            && (this.getUserLevel() == null ? other.getUserLevel() == null : this.getUserLevel().equals(other.getUserLevel()))
-            && (this.getPoints() == null ? other.getPoints() == null : this.getPoints().equals(other.getPoints()))
-            && (this.getExperienceValue() == null ? other.getExperienceValue() == null : this.getExperienceValue().equals(other.getExperienceValue()))
-            && (this.getBirthday() == null ? other.getBirthday() == null : this.getBirthday().equals(other.getBirthday()))
-            && (this.getLastLoginTime() == null ? other.getLastLoginTime() == null : this.getLastLoginTime().equals(other.getLastLoginTime()));
+                && (this.getUsername() == null ? other.getUsername() == null : this.getUsername().equals(other.getUsername()))
+                && (this.getPassword() == null ? other.getPassword() == null : this.getPassword().equals(other.getPassword()))
+                && (this.getPhone() == null ? other.getPhone() == null : this.getPhone().equals(other.getPhone()))
+                && (this.getEmail() == null ? other.getEmail() == null : this.getEmail().equals(other.getEmail()))
+                && (this.getCreated() == null ? other.getCreated() == null : this.getCreated().equals(other.getCreated()))
+                && (this.getUpdated() == null ? other.getUpdated() == null : this.getUpdated().equals(other.getUpdated()))
+                && (this.getSourceType() == null ? other.getSourceType() == null : this.getSourceType().equals(other.getSourceType()))
+                && (this.getNickName() == null ? other.getNickName() == null : this.getNickName().equals(other.getNickName()))
+                && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
+                && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
+                && (this.getHeadPic() == null ? other.getHeadPic() == null : this.getHeadPic().equals(other.getHeadPic()))
+                && (this.getQq() == null ? other.getQq() == null : this.getQq().equals(other.getQq()))
+                && (this.getAccountBalance() == null ? other.getAccountBalance() == null : this.getAccountBalance().equals(other.getAccountBalance()))
+                && (this.getIsMobileCheck() == null ? other.getIsMobileCheck() == null : this.getIsMobileCheck().equals(other.getIsMobileCheck()))
+                && (this.getIsEmailCheck() == null ? other.getIsEmailCheck() == null : this.getIsEmailCheck().equals(other.getIsEmailCheck()))
+                && (this.getSex() == null ? other.getSex() == null : this.getSex().equals(other.getSex()))
+                && (this.getUserLevel() == null ? other.getUserLevel() == null : this.getUserLevel().equals(other.getUserLevel()))
+                && (this.getPoints() == null ? other.getPoints() == null : this.getPoints().equals(other.getPoints()))
+                && (this.getExperienceValue() == null ? other.getExperienceValue() == null : this.getExperienceValue().equals(other.getExperienceValue()))
+                && (this.getBirthday() == null ? other.getBirthday() == null : this.getBirthday().equals(other.getBirthday()))
+                && (this.getLastLoginTime() == null ? other.getLastLoginTime() == null : this.getLastLoginTime().equals(other.getLastLoginTime()))
+                && (this.getIsFrozen() == null ? other.getIsFrozen() == null : this.getIsFrozen().equals(other.getIsFrozen()))
+                && (this.getLoginTimeWeek() == null ? other.getLoginTimeWeek() == null : this.getLoginTimeWeek().equals(other.getLoginTimeWeek()))
+                && (this.getCountWeek() == null ? other.getCountWeek() == null : this.getCountWeek().equals(other.getCountWeek()));
     }
 
     @Override
@@ -381,6 +428,25 @@ public class User implements Serializable {
         result = prime * result + ((getExperienceValue() == null) ? 0 : getExperienceValue().hashCode());
         result = prime * result + ((getBirthday() == null) ? 0 : getBirthday().hashCode());
         result = prime * result + ((getLastLoginTime() == null) ? 0 : getLastLoginTime().hashCode());
+        result = prime * result + ((getIsFrozen() == null) ? 0 : getIsFrozen().hashCode());
+        result = prime * result + ((getLoginTimeWeek() == null) ? 0 : getLoginTimeWeek().hashCode());
+        result = prime * result + ((getCountWeek() == null) ? 0 : getCountWeek().hashCode());
         return result;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getProfession() {
+        return profession;
+    }
+
+    public void setProfession(String profession) {
+        this.profession = profession;
     }
 }

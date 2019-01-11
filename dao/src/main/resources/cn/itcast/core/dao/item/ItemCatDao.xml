@@ -6,7 +6,7 @@
     <result column="parent_id" property="parentId" jdbcType="BIGINT" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="type_id" property="typeId" jdbcType="BIGINT" />
-    <result column="cat_status" property="catStatus" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -68,7 +68,7 @@
   </sql>
   <sql id="Base_Column_List" >
     <if test="fields == null" >
-      id, parent_id, name, type_id, cat_status
+      id, parent_id, name, type_id, status
     </if>
     <if test="fields != null" >
       ${fields}
@@ -90,7 +90,7 @@
   </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
-    id,parent_id,name,type_id,cat_status
+    id,parent_id,name,type_id,status
     from tb_item_cat
     where id = #{id,jdbcType=BIGINT}
   </select>
@@ -106,9 +106,9 @@
   </delete>
   <insert id="insert" parameterType="cn.itcast.core.pojo.item.ItemCat" >
     insert into tb_item_cat (id, parent_id, name, 
-      type_id, cat_status)
+      type_id, status)
     values (#{id,jdbcType=BIGINT}, #{parentId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, 
-      #{typeId,jdbcType=BIGINT}, #{catStatus,jdbcType=VARCHAR})
+      #{typeId,jdbcType=BIGINT}, #{status,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="cn.itcast.core.pojo.item.ItemCat" >
     insert into tb_item_cat
@@ -125,8 +125,8 @@
       <if test="typeId != null" >
         type_id,
       </if>
-      <if test="catStatus != null" >
-        cat_status,
+      <if test="status != null" >
+        status,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -142,8 +142,8 @@
       <if test="typeId != null" >
         #{typeId,jdbcType=BIGINT},
       </if>
-      <if test="catStatus != null" >
-        #{catStatus,jdbcType=VARCHAR},
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -168,8 +168,8 @@
       <if test="record.typeId != null" >
         type_id = #{record.typeId,jdbcType=BIGINT},
       </if>
-      <if test="record.catStatus != null" >
-        cat_status = #{record.catStatus,jdbcType=VARCHAR},
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -182,7 +182,7 @@
       parent_id = #{record.parentId,jdbcType=BIGINT},
       name = #{record.name,jdbcType=VARCHAR},
       type_id = #{record.typeId,jdbcType=BIGINT},
-      cat_status = #{record.catStatus,jdbcType=VARCHAR}
+      status = #{record.status,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -199,8 +199,8 @@
       <if test="typeId != null" >
         type_id = #{typeId,jdbcType=BIGINT},
       </if>
-      <if test="catStatus != null" >
-        cat_status = #{catStatus,jdbcType=VARCHAR},
+      <if test="status != null" >
+       status = #{catStatus,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
@@ -209,8 +209,7 @@
     update tb_item_cat
     set parent_id = #{parentId,jdbcType=BIGINT},
       name = #{name,jdbcType=VARCHAR},
-      type_id = #{typeId,jdbcType=BIGINT},
-      cat_status = #{catStatus,jdbcType=VARCHAR}
+      type_id = #{typeId,jdbcType=BIGINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

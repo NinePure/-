@@ -1564,6 +1564,206 @@ public class UserQuery {
             addCriterion("last_login_time not between", value1, value2, "lastLoginTime");
             return (Criteria) this;
         }
+
+        public Criteria andIsFrozenIsNull() {
+            addCriterion("is_frozen is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsFrozenIsNotNull() {
+            addCriterion("is_frozen is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsFrozenEqualTo(String value) {
+            addCriterion("is_frozen =", value, "isFrozen");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsFrozenNotEqualTo(String value) {
+            addCriterion("is_frozen <>", value, "isFrozen");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsFrozenGreaterThan(String value) {
+            addCriterion("is_frozen >", value, "isFrozen");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsFrozenGreaterThanOrEqualTo(String value) {
+            addCriterion("is_frozen >=", value, "isFrozen");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsFrozenLessThan(String value) {
+            addCriterion("is_frozen <", value, "isFrozen");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsFrozenLessThanOrEqualTo(String value) {
+            addCriterion("is_frozen <=", value, "isFrozen");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsFrozenLike(String value) {
+            addCriterion("is_frozen like", value, "isFrozen");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsFrozenNotLike(String value) {
+            addCriterion("is_frozen not like", value, "isFrozen");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsFrozenIn(List<String> values) {
+            addCriterion("is_frozen in", values, "isFrozen");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsFrozenNotIn(List<String> values) {
+            addCriterion("is_frozen not in", values, "isFrozen");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsFrozenBetween(String value1, String value2) {
+            addCriterion("is_frozen between", value1, value2, "isFrozen");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsFrozenNotBetween(String value1, String value2) {
+            addCriterion("is_frozen not between", value1, value2, "isFrozen");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoginTimeWeekIsNull() {
+            addCriterion("login_time_week is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoginTimeWeekIsNotNull() {
+            addCriterion("login_time_week is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoginTimeWeekEqualTo(Date value) {
+            addCriterion("login_time_week =", value, "loginTimeWeek");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoginTimeWeekNotEqualTo(Date value) {
+            addCriterion("login_time_week <>", value, "loginTimeWeek");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoginTimeWeekGreaterThan(Date value) {
+            addCriterion("login_time_week >", value, "loginTimeWeek");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoginTimeWeekGreaterThanOrEqualTo(Date value) {
+            addCriterion("login_time_week >=", value, "loginTimeWeek");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoginTimeWeekLessThan(Date value) {
+            addCriterion("login_time_week <", value, "loginTimeWeek");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoginTimeWeekLessThanOrEqualTo(Date value) {
+            addCriterion("login_time_week <=", value, "loginTimeWeek");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoginTimeWeekIn(List<Date> values) {
+            addCriterion("login_time_week in", values, "loginTimeWeek");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoginTimeWeekNotIn(List<Date> values) {
+            addCriterion("login_time_week not in", values, "loginTimeWeek");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoginTimeWeekBetween(Date value1, Date value2) {
+            addCriterion("login_time_week between", value1, value2, "loginTimeWeek");
+            return (Criteria) this;
+        }
+
+        public Criteria andLoginTimeWeekNotBetween(Date value1, Date value2) {
+            addCriterion("login_time_week not between", value1, value2, "loginTimeWeek");
+            return (Criteria) this;
+        }
+
+        public Criteria andCountWeekIsNull() {
+            addCriterion("count_week is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCountWeekIsNotNull() {
+            addCriterion("count_week is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCountWeekEqualTo(String value) {
+            addCriterion("count_week =", value, "countWeek");
+            return (Criteria) this;
+        }
+
+        public Criteria andCountWeekNotEqualTo(String value) {
+            addCriterion("count_week <>", value, "countWeek");
+            return (Criteria) this;
+        }
+
+        public Criteria andCountWeekGreaterThan(String value) {
+            addCriterion("count_week >", value, "countWeek");
+            return (Criteria) this;
+        }
+
+        public Criteria andCountWeekGreaterThanOrEqualTo(String value) {
+            addCriterion("count_week >=", value, "countWeek");
+            return (Criteria) this;
+        }
+
+        public Criteria andCountWeekLessThan(String value) {
+            addCriterion("count_week <", value, "countWeek");
+            return (Criteria) this;
+        }
+
+        public Criteria andCountWeekLessThanOrEqualTo(String value) {
+            addCriterion("count_week <=", value, "countWeek");
+            return (Criteria) this;
+        }
+
+        public Criteria andCountWeekLike(String value) {
+            addCriterion("count_week like", value, "countWeek");
+            return (Criteria) this;
+        }
+
+        public Criteria andCountWeekNotLike(String value) {
+            addCriterion("count_week not like", value, "countWeek");
+            return (Criteria) this;
+        }
+
+        public Criteria andCountWeekIn(List<String> values) {
+            addCriterion("count_week in", values, "countWeek");
+            return (Criteria) this;
+        }
+
+        public Criteria andCountWeekNotIn(List<String> values) {
+            addCriterion("count_week not in", values, "countWeek");
+            return (Criteria) this;
+        }
+
+        public Criteria andCountWeekBetween(String value1, String value2) {
+            addCriterion("count_week between", value1, value2, "countWeek");
+            return (Criteria) this;
+        }
+
+        public Criteria andCountWeekNotBetween(String value1, String value2) {
+            addCriterion("count_week not between", value1, value2, "countWeek");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

@@ -13,17 +13,13 @@ app.controller('sellMoneyController', function ($scope, $controller, $location, 
             function (response) {
                 $scope.list = response.pageResult.rows;
                 $scope.paginationConf.totalItems = response.pageResult.total;//更新总记录数
-                $scope.sellNum = [10,20];
-                $scope.groupData = ["xixi", "heh"];
-                $scope.$apply();
-
             }
         );
     }
 
 
     $scope.deleteStatus = ["上架中", "已下架"];
-    alert($scope.groupData);
+
 
 });
 

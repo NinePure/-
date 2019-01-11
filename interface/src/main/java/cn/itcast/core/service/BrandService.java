@@ -22,6 +22,8 @@ public interface BrandService {
 
     public void delete(Long[] ids);
 
+//    申请品牌
+    public Boolean save(String username);
     /**
      * 审核
      * @param ids

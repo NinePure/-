@@ -81,6 +81,7 @@
 								</li>
 								<li class="yui3-u-11-24">
 									<div class="good-item">
+										<input type="hidden" name="itemId" ng-model="{{item.id}}"/>
 										<div class="item-img"><img src="{{item.picPath}}" /></div>
 										<div class="item-msg">{{item.title}}</div>
 									</div>
@@ -95,7 +96,7 @@
 								<li class="yui3-u-1-8"><span class="sum">{{item.totalFee}}</span></li>
 								<li class="yui3-u-1-8">
 									<a href="#none">删除</a><br />
-									<a href="#none">移到我的关注</a>
+									<a href="#none" ng-click = "addGoodsToCollect()">移到我的关注</a>
 								</li>
 							</ul>
 						</div>
