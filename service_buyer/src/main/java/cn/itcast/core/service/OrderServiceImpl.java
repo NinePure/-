@@ -299,5 +299,9 @@ public class OrderServiceImpl implements OrderService {
 
         return new PageResult<SellMoney>(goodsPage.getTotal(),sellMoneyList);
     }
+    @Override
+    public void updateShippingStatus(Order order) {
+        orderDao.updateByPrimaryKeySelective(order);
+    }
 
 }

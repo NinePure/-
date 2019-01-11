@@ -73,7 +73,7 @@
                 <option value="6">退款中</option>
             </select>
 
-                商品名称：<input type="text" ng-model="searchEntity.title">
+
                 订单号：<input type="text" ng-model="searchEntity.orderId">
                 买家名称：<input type="text" ng-model="searchEntity.userId">
                 <button class="btn btn-default" ng-click="reloadList()">查询</button>
@@ -87,25 +87,26 @@
             <tr>
                 <td></td>
                 <td>订单号</td>
-                <td>{{entity.orderId}}</td>
+                <td>{{entity.orderIdStr}}</td>
                 <td>用户名</td>
                 <td>{{entity.userId}}</td>
+                <td><button type="button" ng-click="shipping.orderId=entity.orderIdStr" ng-if="entity.status!=3" class="btn btn-default" title="新建" data-target="#uploadModal"  data-toggle="modal"  ><i class="fa fa-file-o"></i> 发货</button></td>
             </tr>
 
             </thead>
             <tbody>
             <tr>
-            <th class="" style="padding-right:0px">
-            <input id="selall" type="checkbox" class="icheckbox_square-blue" ng-model="myVar" ng-init="myVar = false">
-            </th>
+                <th class="" style="padding-right:0px">
+                    <input id="selall" type="checkbox" class="icheckbox_square-blue" ng-model="myVar" ng-init="myVar = false">
+                </th>
 
-            <th class="sorting_asc">宝贝</th>
-            <th class="sorting">宝贝图片</th>
-            <th class="sorting">单价</th>
-            <th class="sorting">数量</th>
-            <th class="sorting">交易状态</th>
-            <th class="sorting">实收款</th>
-            <th class="sorting">操作</th>
+                <th class="sorting_asc">宝贝</th>
+                <th class="sorting">宝贝图片</th>
+                <th class="sorting">单价</th>
+                <th class="sorting">数量</th>
+                <th class="sorting">交易状态</th>
+                <th class="sorting">实收款</th>
+
 
             </tr>
             <tr ng-repeat="entity1 in entity.orderItemList" ng-if="myVar">
@@ -121,10 +122,12 @@
                 </td>
                 <td>{{entity1.totalFee}}</td>
 
-                <td class="text-center">
-                    <a class="btn bg-olive btn-xs" href="goods_edit.html#?id={{entity1.id}}">修改</a>
-                </td>
+                <!--<td class="text-center">-->
+                <!--&lt;!&ndash;<a class="btn bg-olive btn-xs" href="goods_edit.html#?id={{entity1.id}}">发货</a>&ndash;&gt;-->
+                <!---->
+                <!--</td>-->
             </tr>
+
             </tbody>
         </table>
         <!--数据列表/-->
@@ -137,7 +140,35 @@
 
 </div>
 <!-- /.box-body -->
+<div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" >
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="myModalLabel">发货详情</h3>
+            </div>
+            <div class="modal-body">
 
+                <table class="table table-bordered table-striped">
+                    <tr>
+                        <td>快递单号:</td>
+                        <td><input ng-model="shipping.shippingCode" class="form-control" placeholder="快递单号" >  </td>
+                    </tr>
+                    <tr>
+                        <td>物流公司</td>
+                        <td><input ng-model="shipping.shippingName" class="form-control" placeholder="物流公司" >  </td>
+                    </tr>
+                </table>
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success"  data-dismiss="modal" ng-click="add_shipping()" aria-hidden="true">发货</button>
+                <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">关闭</button>
+            </div>
+
+        </div>
+    </div>
+</div>
 </body>
 
 </html>

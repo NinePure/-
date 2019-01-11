@@ -13,11 +13,13 @@
         <module name="service_buyer" />
         <module name="service_page" />
         <module name="service_search" />
+        <module name="service_seckill" />
         <module name="service_sellergoods" />
         <module name="service_user" />
         <module name="solr_util" />
         <module name="web_manager" />
         <module name="web_portal" />
+        <module name="web_seckill" />
         <module name="web_shop" />
         <module name="web_user" />
       </profile>

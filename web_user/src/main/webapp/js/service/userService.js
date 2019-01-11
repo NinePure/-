@@ -35,7 +35,6 @@ app.service('userService',function($http){
 	}
 	//添加用户详情
 	this.addSpec=function (entity) {
-        alert(entity.birthday)
         return $http.post('../user/addSpec.do',entity);
     }
 	

@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans:beans xmlns="http://www.springframework.org/schema/security"
-	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-						http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
 
     <!--放行的静态资源-->
 	<http pattern="/css/**" security="none"></http>
@@ -63,9 +65,19 @@
             </beans:bean>  
         </beans:property>  
         <beans:property name="key" value="an_id_for_this_auth_provider_only"/> 
-    </beans:bean>        
-   		 <!-- 认证类 -->
-	<beans:bean id="userDetailsService" class="cn.itcast.core.service.UserDetailServiceImpl"/>
+    </beans:bean>
+
+
+    <!-- 引用dubbo 服务 -->
+    <dubbo:application name="pinyougou-user-web" />
+    <dubbo:registry address="zookeeper://192.168.200.128:2181"/>
+    <!-- 配置指定使用的dubbo的service服务接口 -->
+    <dubbo:reference id="manageUserService"  interface="cn.itcast.core.service.ManageUserService" >
+    </dubbo:reference>
+    <!-- 认证类 -->
+    <beans:bean id="userDetailsService" class="cn.itcast.core.service.UserDetailServiceImpl">
+        <beans:property name="manageUserService" ref="manageUserService"></beans:property>
+    </beans:bean>
 	
 	<!-- 认证过滤器 结束 -->
 	
