@@ -117,4 +117,23 @@ public class TemplateServiceImpl implements TemplateService {
 
         return maps;
     }
+
+    /**
+     * 模板审核
+     * @param ids
+     * @param status
+     */
+    @Override
+    public void updateStatus(Long[] ids, String status) {
+        if (ids != null) {
+            for (Long id : ids) {
+                TypeTemplate typeTemplate = new TypeTemplate();
+                typeTemplate.setId(id);
+                typeTemplate.setTemStatus(status);
+                templateDao.updateByPrimaryKeySelective(typeTemplate);
+
+            }
+        }
+
+    }
 }

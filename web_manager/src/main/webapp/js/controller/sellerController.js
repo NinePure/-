@@ -87,4 +87,21 @@ app.controller('sellerController' ,function($scope,$controller   ,sellerService)
 			}
 		});
 	}
+    //商品导出
+    $scope.goods=function(){
+        sellerService.goods().success(
+            function(response){
+                $scope.list=response;
+            }
+        );
+    }
+
+    //订单导出
+    $scope.order=function(){
+        sellerService.order().success(
+            function(response){
+                $scope.list=response;
+            }
+        );
+    }
 });	

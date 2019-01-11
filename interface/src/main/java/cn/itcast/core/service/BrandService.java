@@ -24,4 +24,11 @@ public interface BrandService {
 
 //    申请品牌
     public Boolean save(String username);
+    /**
+     * 审核
+     * @param ids
+     * @param Status
+     */
+    public void updateStatus(Long[] ids, String Status);
+
 }

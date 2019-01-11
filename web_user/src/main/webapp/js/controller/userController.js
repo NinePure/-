@@ -2,10 +2,25 @@
 app.controller('userController' ,function($scope,$controller   ,userService,loginService){
     $controller('baseController',{$scope:$scope});//继承
 	//注册用户
+
+    $scope.uploadPic = function() {
+        alert(123);
+        // 调用userService的方法完成文件的上传
+        userService.uploadFile().success(function (response) {
+            if (response.success) {
+                // 获得url
+                alert(response.message);
+            } else {
+                alert(response.message);
+            }
+        });
+    };
+
     $scope.showName=function(){
         loginService.showName().success(
             function(response){
                 $scope.loginName=response.loginName;
+                $scope.picPath=response.picPath;
             }
         );
     }

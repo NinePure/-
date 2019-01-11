@@ -1,6 +1,7 @@
 package cn.itcast.core.controller;
 
 import cn.itcast.core.pojo.entity.PageResult;
+import cn.itcast.core.pojo.entity.Result;
 import cn.itcast.core.pojo.entity.SellMoney;
 import cn.itcast.core.pojo.order.Order;
 import cn.itcast.core.service.OrderService;
@@ -77,6 +78,17 @@ public class OrderController {
         map.put("pageResult",sellMoneyPageResult);
         return map;
     }
+    @RequestMapping("/insertShippingToOrder")
+    public Result insertShippingToOrder(@RequestBody Order order){
+        order.setStatus("3");
+        try{
+            orderService.updateShippingStatus(order);
+            return new Result(true,"发货成功");
+        }catch (Exception e){
+            return new Result(false,"发货失败");
+        }
 
+
+    }
 
 }

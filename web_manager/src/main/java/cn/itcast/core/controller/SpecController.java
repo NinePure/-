@@ -24,6 +24,24 @@ public class SpecController {
     private SpecService specService;
 
     /**
+     * 规格审核
+     * @param ids
+     * @param status
+     * @return
+     */
+    @RequestMapping("/updateStatus")
+    public Result updateStatus(Long[] ids, String status) {
+        try {
+            specService.updateStatus(ids,status);
+            return new Result(true, "成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Result(false, "失败");
+        }
+    }
+
+
+    /**
      * 规格高级查询
      * @param spec
      * @param page

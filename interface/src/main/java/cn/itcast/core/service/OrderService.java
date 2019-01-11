@@ -23,4 +23,5 @@ public interface OrderService {
 
     PageResult<SellMoney> findSellMoney(String page, String rows, Date startTime, Date endTime, String name);
 
+    void updateShippingStatus(Order order);
 }

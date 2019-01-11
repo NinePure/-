@@ -21,6 +21,9 @@ app.controller('ordersController' ,function($scope,$controller,ordersService,log
     		}
     	);
     }
+
+
+
 	//
 	// //保存
 	// $scope.save=function(){

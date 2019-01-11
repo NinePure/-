@@ -17,6 +17,25 @@ public class TemplateController {
     @Reference
     private TemplateService templateService;
 
+
+    /**
+     * 审核
+     * @param ids
+     * @param status
+     * @return
+     */
+    @RequestMapping("/updateStatus")
+    public Result updateStatus(Long[] ids, String status) {
+        try {
+            templateService.updateStatus(ids,status);
+            return new Result(true, "成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Result(false, "失败");
+        }
+    }
+
+
     @RequestMapping("/search")
     public PageResult search(@RequestBody TypeTemplate template, Integer page, Integer rows) {
         PageResult result = templateService.findPage(template, page, rows);

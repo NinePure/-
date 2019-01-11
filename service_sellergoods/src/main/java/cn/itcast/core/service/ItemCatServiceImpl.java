@@ -1,10 +1,14 @@
 package cn.itcast.core.service;
 
 import cn.itcast.core.dao.item.ItemCatDao;
+import cn.itcast.core.dao.template.TypeTemplateDao;
+import cn.itcast.core.pojo.entity.PageResult;
 import cn.itcast.core.pojo.item.ItemCat;
 import cn.itcast.core.pojo.item.ItemCatQuery;
 import cn.itcast.core.util.Constants;
 import com.alibaba.dubbo.config.annotation.Service;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +24,9 @@ public class ItemCatServiceImpl implements ItemCatService {
 
     @Autowired
     private RedisTemplate redisTemplate;
+
+    @Autowired
+    private TypeTemplateDao templateDao;
 
     @Override
     public List<ItemCat> findByParentId(Long parentId) {
@@ -48,6 +55,39 @@ public class ItemCatServiceImpl implements ItemCatService {
     public List<ItemCat> findAll() {
         return catDao.selectByExample(null);
     }
+
+    /**
+     * 分类审核
+     *
+     * @param ids
+     * @param status
+     */
+    @Override
+    public void updateStatus(Long[] ids, String status) {
+        if (ids != null) {
+            for (Long id : ids) {
+                ItemCat itemCat = new ItemCat();
+                itemCat.setId(id);
+                itemCat.setStatus(status);
+                catDao.updateByPrimaryKeySelective(itemCat);
+               /* ItemCatQuery itemCatQuery = new ItemCatQuery();
+                ItemCatQuery.Criteria criteria = itemCatQuery.createCriteria();
+                criteria.andParentIdEqualTo(id);
+                catDao.updateByExampleSelective(itemCat, itemCatQuery);*/
+            }
+        }
+    }
+
+    @Override
+    public PageResult search(ItemCat itemCat, Integer page, Integer rows) {
+        PageHelper.startPage(page, rows);
+        Page<ItemCat> itemCats = (Page<ItemCat>) catDao.selectByExample(null);
+        return new PageResult(itemCats.getTotal(),itemCats.getResult());
+    }
+
+
+
+
 
 
 
