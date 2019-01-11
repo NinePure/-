@@ -67,10 +67,10 @@
             <div class="has-feedback">
 
 
-                起始时间:<input type="date" ng-model="searchEntity.startTime">
+                起始时间:<input type="date" ng-model="searchEntity.startTime" id="input1">
 
-                截止时间：<input type="date" ng-model="searchEntity.endTime">
-                <button class="btn btn-default" ng-click="reloadList()">查询</button>
+                截止时间：<input type="date" ng-model="searchEntity.endTime" id="input2">
+                <button class="btn btn-default" ng-click="reloadList()" onclick="fetchData()">查询</button>
             </div>
         </div>
         <!--工具栏/-->
@@ -89,7 +89,6 @@
                 <th class="sorting">上架状态</th>
 
 
-
             </tr>
 
             </thead>
@@ -98,7 +97,7 @@
             <tr ng-repeat="entity in list">
 
                 <td>{{entity.name}}</td>
-                <td><img src="{{entity.imageUrl}}" style="width: 100px; height: 100px;"> </td>
+                <td><img src="{{entity.imageUrl}}" style="width: 100px; height: 100px;"></td>
                 <td>{{entity.num}}</td>
                 <td>{{entity.price}}</td>
 
@@ -110,20 +109,20 @@
                 </span>
                 </td>
                 <!--<td class="text-center">-->
-                    <!--<a class="btn bg-olive btn-xs" href="goods_edit.html#?id={{entity1.id}}">修改</a>-->
+                <!--<a class="btn bg-olive btn-xs" href="goods_edit.html#?id={{entity1.id}}">修改</a>-->
                 <!--</td>-->
             </tr>
             </tbody>
         </table>
         <!--数据列表/-->
         显示每日销售额: <input type="checkbox" ng-model="myVar">
-        <div align="center" style="width: 600px; height:600px;">
+        <!--<div align="center" style="width: 600px; height:600px;">-->
 
 
-            <div ng-show="myVar" ng-model="sellNum" data-source='groupData' data-num="sellNum"  bar-charts  style="width: 100%;height: 80%;"></div>
+        <!--<div ng-show="myVar" ng-model="sellNum" data-source='groupData' data-num="sellNum"  bar-charts  style="width: 100%;height: 80%;"></div>-->
 
-        </div>
-        <!--<div id="main" style="width: 1000px;height:600px;"></div>-->
+        <!--</div>-->
+        <div id="main" ng-show="myVar" style="width: 1000px;height:600px;"></div>
     </div>
     <!-- 数据表格 /-->
     <!-- 分页 -->
@@ -132,96 +131,115 @@
 </div>
 <!-- /.box-body -->
 
-</body> <script type="text/javascript">
-    var app=angular.module('pinyougou',[]);
-    app.directive('barCharts', function () {
-        return {
-            restrict: 'AE',
-            scope: {
-                source: '=',
-                num: '='
-            },
-            template: '<div>这是折线图</div>',
-            controller: function ($scope) {
-            },
-            link: function (scope, element, attr) {
-                console.log(scope.source);
-                var chart = element.find('div')[0];
-                var parent = element['context'];
-                //    console.log(parent.clientHeight+":"+parent.clientWidth);
-                chart.style.width = parent.clientWidth + 'px';
-                chart.style.height = parent.clientHeight + 'px';
-
-                var myChart = echarts.init(chart);
-                var option = {
-                    xAxis: {
-                        type: 'category',
-                        boundaryGap: false,
-                        data: scope.source
-                    },
-                    yAxis: {
-                        type: 'value'
-                    },
-                    series: [{
-                        data: scope.num,
-                        type: 'line',
-                        areaStyle: {}
-                    }]
-                };
-                myChart.setOption(option);
-                myChart.resize();
-            }
-        };
-
-    })
-</script>
-
+</body>
 <!--<script type="text/javascript">-->
-    <!--// 基于准备好的dom，初始化echarts实例-->
-    <!--var myChart = echarts.init(document.getElementById('main'));-->
+<!--var app=angular.module('pinyougou',[]);-->
+<!--app.directive('barCharts', function () {-->
+<!--return {-->
+<!--restrict: 'AE',-->
+<!--scope: {-->
+<!--source: '=',-->
+<!--num: '='-->
+<!--},-->
+<!--template: '<div>这是折线图</div>',-->
+<!--controller: function ($scope) {-->
+<!--},-->
+<!--link: function (scope, element, attr) {-->
+<!--console.log(scope.source);-->
+<!--var chart = element.find('div')[0];-->
+<!--var parent = element['context'];-->
+<!--//    console.log(parent.clientHeight+":"+parent.clientWidth);-->
+<!--chart.style.width = parent.clientWidth + 'px';-->
+<!--chart.style.height = parent.clientHeight + 'px';-->
 
-    <!--option = {-->
-        <!--xAxis: {-->
-            <!--type: 'category',-->
-            <!--boundaryGap: false,-->
-            <!--data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']-->
-        <!--},-->
-        <!--yAxis: {-->
-            <!--type: 'value'-->
-        <!--},-->
-        <!--series: [{-->
-            <!--data: [820, 932, 901, 934, 1290, 1330, 1320],-->
-            <!--type: 'line',-->
-            <!--areaStyle: {}-->
-        <!--}]-->
-    <!--};-->
+<!--var myChart = echarts.init(chart);-->
+<!--var option = {-->
+<!--xAxis: {-->
+<!--type: 'category',-->
+<!--boundaryGap: false,-->
+<!--data: scope.source-->
+<!--},-->
+<!--yAxis: {-->
+<!--type: 'value'-->
+<!--},-->
+<!--series: [{-->
+<!--data: scope.num,-->
+<!--type: 'line',-->
+<!--areaStyle: {}-->
+<!--}]-->
+<!--};-->
+<!--myChart.setOption(option);-->
+<!--myChart.resize();-->
+<!--}-->
+<!--};-->
 
-    <!--// 使用刚指定的配置项和数据显示图表。-->
-    <!--myChart.setOption(option);-->
-    <!--myChart.setOption({-->
-        <!--xAxis: {-->
-            <!--data: ["xixi","heh","lala"]-->
-        <!--},-->
-        <!--series: [{-->
-            <!--// 根据名字对应到相应的系列-->
-            <!--name: '销量',-->
-            <!--data: [10,20,30]-->
-        <!--}]-->
-    <!--});-->
-    <!--//通过DOM操作获取app对象-->
-    <!--var scope1=$('[ng-controller="sellMoneyController"]').scope();-->
-    <!--alert(scope1.sellNum);-->
-    <!--var element = angular.element(document.getElementById("pinyougou"));-->
-    <!--//得到app对象，可以获取app的controller-->
-    <!--var controller = element.controller();-->
-    <!--//得到app对象，可以获取app的$scope-->
-    <!--var scope = element.scope();-->
-    <!--//调用$scope中的方法-->
-    <!--console.log(scope.groupData);-->
-    <!--//调用方法后，可以重新绑定，在页面同步（可选）-->
-    <!--scope.$apply();-->
-
-
+<!--})-->
 <!--</script>-->
+<script type="text/javascript">
+    // 基于准备好的dom，初始化echarts实例
+    var myChart = echarts.init(document.getElementById('main'));
+
+    option = {
+        xAxis: {
+            type: 'category',
+            boundaryGap: false,
+            data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+        },
+        yAxis: {
+            type: 'value'
+        },
+        series: [{
+            data: [820, 932, 901, 934, 1290, 1330, 1320],
+            type: 'line',
+            areaStyle: {}
+        }]
+    };
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+
+    function fetchData (){
+        // 通过 setTimeout 模拟异步加载
+        setTimeout(function () {
+            $.post(
+                //服务器URL
+                "../order/findSellMoney.do",
+                //提交服务器参数
+                "page=1&rows=10&startTime="+$("#input1").val()+"&endTime="+$("#input2").val(),
+                //响应成功的回调函数
+                //响应数据回来,传递到匿名函数中
+                function (data) {
+
+                    myChart.setOption({
+                        xAxis: {
+                            data: data.dateList
+                        },
+                        series: [{
+                            // 根据名字对应到相应的系列
+                            name: '销量',
+                            data: data.bigDecimalList
+                        }]
+                    });
+                },
+                //接收服务器响应的数据类型,文本
+                "json"
+            );
+        }, 200);
+    }
+    // fetchData(function (data) {
+    //     myChart.setOption({
+    //         xAxis: {
+    //             data: data.categories
+    //         },
+    //         series: [{
+    //             // 根据名字对应到相应的系列
+    //             name: '销量',
+    //             data: data.data
+    //         }]
+    //     });
+    // });
+
+
+</script>
 
 </html>
