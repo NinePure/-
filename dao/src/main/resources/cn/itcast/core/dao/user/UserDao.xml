@@ -27,6 +27,8 @@
     <result column="is_frozen" property="isFrozen" jdbcType="VARCHAR" />
     <result column="login_time_week" property="loginTimeWeek" jdbcType="TIMESTAMP" />
     <result column="count_week" property="countWeek" jdbcType="VARCHAR" />
+    <result column="location" property="location" jdbcType="VARCHAR" />
+    <result column="profession" property="profession" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -225,6 +227,12 @@
       <if test="countWeek != null" >
         count_week,
       </if>
+      <if test="location != null" >
+        location,
+      </if>
+      <if test="profession != null" >
+        profession,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -301,6 +309,12 @@
       </if>
       <if test="countWeek != null" >
         #{countWeek,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null" >
+        #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="profession != null" >
+        #{profession,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -387,6 +401,12 @@
       </if>
       <if test="record.countWeek != null" >
         count_week = #{record.countWeek,jdbcType=VARCHAR},
+      </if>
+      <if test="record.location != null" >
+        location = #{record.location,jdbcType=VARCHAR},
+      </if>
+      <if test="record.profession != null" >
+        profession = #{record.profession,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null" >

@@ -63,9 +63,9 @@ app.controller('goodsController' ,function($scope,$controller,$location,typeTemp
 			return false;
 		}
 	}
-	
-	//保存 
-	$scope.save=function(){	
+
+    //保存
+	$scope.save=function(){
 		// 再添加之前，获得富文本编辑器中的内容。
 		$scope.entity.goodsDesc.introduction=editor.html();
 		var serviceObject;//服务层对象  				

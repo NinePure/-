@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class User implements Serializable {
+    private String location;
+    private String profession;
     private Long id;
 
     /**
@@ -430,5 +432,21 @@ public class User implements Serializable {
         result = prime * result + ((getLoginTimeWeek() == null) ? 0 : getLoginTimeWeek().hashCode());
         result = prime * result + ((getCountWeek() == null) ? 0 : getCountWeek().hashCode());
         return result;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getProfession() {
+        return profession;
+    }
+
+    public void setProfession(String profession) {
+        this.profession = profession;
     }
 }
