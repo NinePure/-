@@ -17,5 +17,5 @@ public interface ItemCatService {
 
     public PageResult search(ItemCat itemCat, Integer page, Integer rows);
 
-    public Boolean save(String itemcat,Long id);
+    public Boolean itemcatadd(ItemCat itemcat);
 }

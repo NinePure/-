@@ -4,28 +4,9 @@ app.controller('brandController' ,function($scope,$controller   ,brandService){
 	$controller('baseController',{$scope:$scope});//继承
 	
 
-	//保存 
-	$scope.save=function(){				
-		var serviceObject;//服务层对象  				
-		if($scope.entity.id!=null){//如果有ID
-			serviceObject=sellerService.update( $scope.entity ); //修改  
-		}else{
-			serviceObject=sellerService.add( $scope.entity  );//增加 
-		}				
-		serviceObject.success(
-			function(response){
-				if(response.success){
-					//重新查询 
-		        	$scope.reloadList();//重新加载
-				}else{
-					alert(response.message);
-				}
-			}		
-		);				
-	}
-	
-	$scope.add = function(){
-        brandService.add( $scope.entity).success(
+	//保存
+	$scope.brandadd = function(){
+        brandService.brandadd( $scope.entity).success(
 			function(response){
 				if(response.success){
 					// 重新查询 

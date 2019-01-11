@@ -19,12 +19,13 @@ public class BrandController {
     BrandService brandService;
     @RequestMapping("/add")
     public Result save(@RequestBody Brand brand){
-        try {
-            brandService.add(brand);
+
+            Boolean flag = brandService.brandadd(brand);
+        if (flag){
+
             return new Result(true,"申请成功");
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new Result(false,"品牌名重复,添加失败");
         }
+            return new Result(false,"品牌名重复,添加失败");
+
     }
 }
