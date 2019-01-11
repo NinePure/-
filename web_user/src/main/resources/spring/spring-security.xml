@@ -69,7 +69,7 @@
 
 
     <!-- 引用dubbo 服务 -->
-    <dubbo:application name="pinyougou-user-web" />
+    <dubbo:application name="pinyougou-user-web"  />
     <dubbo:registry address="zookeeper://192.168.200.128:2181"/>
     <!-- 配置指定使用的dubbo的service服务接口 -->
     <dubbo:reference id="manageUserService"  interface="cn.itcast.core.service.ManageUserService" >

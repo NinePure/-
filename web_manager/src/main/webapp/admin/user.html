@@ -35,19 +35,32 @@
     <div class="table-box">
 
         <!--工具栏-->
-        <div class="pull-left">
-            <div class="form-group form-inline">
-                <div class="btn-group">
-                    <button type="button" class="btn btn-default" title="冻结" ng-click="frozenUser()"><i class="fa fa-trash-o"></i> 冻结用户</button>
-                    <button type="button" class="btn btn-default" title="刷新" onclick="window.location.reload();"><i class="fa fa-refresh"></i> 刷新</button>
-                </div>
-            </div>
-        </div>
         <div class="box-tools pull-right">
             <div class="has-feedback">
                 用户名称:<input type="text" ng-model="searchEntity.username"> 用户ID:<input type="text" ng-model="searchEntity.id"> <input class="btn btn-default" ng-click="reloadList()" type="button" value="查询">
             </div>
         </div>
+
+        <div class="pull-left">
+            <div class="form-group form-inline">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default" title="冻结" ng-click="frozenUser()"><i class="fa fa-trash-o"></i> 冻结用户</button>
+                </div>
+                <div class="btn-group">
+                <button type="button" class="btn btn-default" title="用户总数" ng-click="userCount();"><i class="fa fa-refresh"></i> 获取用户总数</button>
+                <input type="text" value="{{count==null?'':count}}">
+                </div>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default" title="周活跃总人数" ng-click="wau();"><i class="fa fa-refresh"></i> 刷新周活跃用户人数</button>
+                    <input type="text" value="{{number==null?'':number}}">
+                </div>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default" title="周非活跃总人数" ng-click="noWau();"><i class="fa fa-refresh"></i> 刷新非周活跃用户人数</button>
+                    <input type="text" value="{{noNumber==null?'':noNumber}}">
+                </div>
+            </div>
+        </div>
+
         <!--工具栏/-->
 
         <!--数据列表-->
@@ -60,7 +73,7 @@
                 <th class="sorting_asc">用户ID</th>
                 <th class="sorting">用户名称</th>
                 <th class="sorting">是否冻结</th>
-                <th class="sorting">活跃度</th>
+                <th class="sorting">周活跃天数</th>
             </tr>
             </thead>
             <tbody>
