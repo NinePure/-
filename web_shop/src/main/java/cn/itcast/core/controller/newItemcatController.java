@@ -4,6 +4,7 @@ import cn.itcast.core.pojo.entity.Result;
 import cn.itcast.core.pojo.item.ItemCat;
 import cn.itcast.core.service.ItemCatService;
 import com.alibaba.dubbo.config.annotation.Reference;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -14,7 +15,7 @@ public class newItemcatController {
     @Reference
     ItemCatService itemCatService;
     @RequestMapping("/itemcatadd")
-    public Result itemcatadd (ItemCat itemCat){
+    public Result itemcatadd (@RequestBody ItemCat itemCat){
         Boolean flag = itemCatService.itemcatadd(itemCat);
         if (flag){
             return new Result(true,"添加成功");
