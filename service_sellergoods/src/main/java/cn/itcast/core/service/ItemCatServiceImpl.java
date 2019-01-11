@@ -86,14 +86,7 @@ public class ItemCatServiceImpl implements ItemCatService {
     }
 
 
-
-
-
-
-
-
-
-    //    添加分类申请
+    //    添加一级分类申请
     @Override
     public Boolean itemcatadd(ItemCat itemCat) {
 //                     更据名字条件查询是否分类存在
@@ -101,7 +94,7 @@ public class ItemCatServiceImpl implements ItemCatService {
         ItemCatQuery.Criteria criteria = query.createCriteria();
         criteria.andNameEqualTo(itemCat.getName());
         List<ItemCat> itemCatList = catDao.selectByExample(query);
-        //        如果name和id都为空则是一级分类,创建分类
+        //        如果name为空则是一级分类,创建分类
         if (itemCatList.size() == 0) {
             itemCat.setParentId(0L);
             itemCat.setName(itemCat.getName());

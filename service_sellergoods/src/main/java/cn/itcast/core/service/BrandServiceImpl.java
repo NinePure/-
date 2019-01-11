@@ -90,19 +90,18 @@ public class BrandServiceImpl implements BrandService {
 //    品牌申请
 
     @Override
-    public Boolean save(String username) {
-
+    public Boolean brandadd(Brand brand) {
+//        更据名字查询
         BrandQuery query = new BrandQuery();
         BrandQuery.Criteria criteria = query.createCriteria();
-        criteria.andNameEqualTo(username);
+        criteria.andNameEqualTo(brand.getName());
         List<Brand> brandList = brandDao.selectByExample(query);
 //        封装品牌数据
         if (brandList==null){
-            Brand brand= new Brand();
 //            获取品牌名
-            brand.setName(username);
+            brand.setName(brand.getName());
 //            更据品牌名获取汉字的首字母并大写
-            String firstname = String.valueOf(FirstLetterUtil.getFirstLetter(username).toUpperCase().charAt(0));
+            String firstname = String.valueOf(FirstLetterUtil.getFirstLetter(brand.getName()).toUpperCase().charAt(0));
             brand.setFirstChar(firstname);
             brand.setBrStatus("0");
             brandDao.insertSelective(brand);
