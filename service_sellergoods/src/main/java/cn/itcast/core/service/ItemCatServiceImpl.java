@@ -85,6 +85,11 @@ public class ItemCatServiceImpl implements ItemCatService {
         return new PageResult(itemCats.getTotal(),itemCats.getResult());
     }
 
+    @Override
+    public Boolean save(String itemcat, Long id) {
+        return null;
+    }
+
 
     //    添加一级分类申请
     @Override
