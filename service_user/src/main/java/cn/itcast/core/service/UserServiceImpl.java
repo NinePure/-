@@ -20,10 +20,7 @@ import javax.jms.Session;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 @Service
@@ -122,6 +119,27 @@ public class UserServiceImpl implements UserService {
         UserQuery.Criteria criteria = userQuery.createCriteria();
         criteria.andUsernameEqualTo(username);
         userDao.updateByExampleSelective(user, userQuery);
+    }
+
+    @Override
+    public void addHeadPic(String name,String path) {
+        User user = new User();
+        user.setUsername(name);
+        user.setHeadPic(path);
+        UserQuery userQuery = new UserQuery();
+        UserQuery.Criteria criteria = userQuery.createCriteria();
+        criteria.andUsernameEqualTo(name);
+        userDao.updateByExampleSelective(user, userQuery);
+    }
+
+    @Override
+    public String getHeadPic(String username) {
+        UserQuery userQuery = new UserQuery();
+        UserQuery.Criteria criteria = userQuery.createCriteria();
+        criteria.andUsernameEqualTo(username);
+        List<User> userList = userDao.selectByExample(userQuery);
+        String headPic = userList.get(0).getHeadPic();
+        return headPic;
     }
 
     public static void main(String[] args) {

@@ -19,6 +19,27 @@ public class BrandController {
     @Reference
     private BrandService brandService;
 
+
+    /**
+     * 更新
+     * @param ids
+     * @param status
+     * @return
+     */
+
+    @RequestMapping("/updateStatus")
+    public Result updateStatus(Long[] ids, String status) {
+        try {
+            brandService.updateStatus(ids,status);
+            return new Result(true, "成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Result(false, "失败");
+        }
+    }
+
+
+
     @RequestMapping("/findAll")
     public List<Brand> findAll() {
         List<Brand> list = brandService.findAll();

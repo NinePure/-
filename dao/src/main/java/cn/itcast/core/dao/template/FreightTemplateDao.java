@@ -2,8 +2,9 @@ package cn.itcast.core.dao.template;
 
 import cn.itcast.core.pojo.template.FreightTemplate;
 import cn.itcast.core.pojo.template.FreightTemplateQuery;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface FreightTemplateDao {
     int countByExample(FreightTemplateQuery example);

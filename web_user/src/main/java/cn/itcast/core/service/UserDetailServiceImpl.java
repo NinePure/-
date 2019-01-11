@@ -1,5 +1,6 @@
 package cn.itcast.core.service;
 
+import cn.itcast.core.pojo.user.UserLog;
 import com.alibaba.dubbo.config.annotation.Reference;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -9,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -31,18 +33,25 @@ public class UserDetailServiceImpl implements UserDetailsService {
         //定义权限集合
         List<GrantedAuthority> authList = new ArrayList<>();
 
-        List<cn.itcast.core.pojo.user.User> userList = manageUserService.updateAuthority();
-        if (userList!=null){
-            for (cn.itcast.core.pojo.user.User user : userList) {
-                if (username.equals(user.getUsername())){
-                    //向权限集合中加入访问权限
-                    authList.add(new SimpleGrantedAuthority("ROLE_NO"));
-                    return new User(username, "", authList);
-                }
-            }
+        //获取冻结状态
+        String isFrozen = manageUserService.updateAuthority(username);
+        if ("1".equals(isFrozen)){
+            //向权限集合中加入访问权限
+            authList.add(new SimpleGrantedAuthority("ROLE_NO"));
+            return new User(username, "", authList);
+        }else{
+            //封装UserLog
+            Long idByUsername = manageUserService.findIdByUsername(username);
+            UserLog userLog = new UserLog();
+            userLog.setId(idByUsername);
+            userLog.setUsername(username);
+            userLog.setLoginTime(new Date());
+            manageUserService.addUserLog(userLog);
+            //向权限集合中加入访问权限
+            authList.add(new SimpleGrantedAuthority("ROLE_USER"));
+            return new User(username, "", authList);
         }
-        //向权限集合中加入访问权限
-        authList.add(new SimpleGrantedAuthority("ROLE_USER"));
-        return new User(username, "", authList);
+
+
     }
 }

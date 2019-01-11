@@ -28,6 +28,23 @@ public class SpecServiceImpl implements SpecService {
     private SpecificationOptionDao optionDao;
 
 
+    /**
+     * 规格审核
+     * @param ids
+     * @param status
+     */
+    public void updateStatus(Long[] ids, String status) {
+        if (ids != null) {
+            for (Long id : ids) {
+                Specification specification = new Specification();
+                specification.setId(id);
+                specification.setSpecStatus(status);
+                specDao.updateByPrimaryKeySelective(specification);
+            }
+        }
+    }
+
+
     @Override
     public PageResult findPage(Specification spec, Integer page, Integer rows) {
         PageHelper.startPage(page, rows);

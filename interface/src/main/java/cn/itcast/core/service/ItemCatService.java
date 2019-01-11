@@ -1,5 +1,6 @@
 package cn.itcast.core.service;
 
+import cn.itcast.core.pojo.entity.PageResult;
 import cn.itcast.core.pojo.item.ItemCat;
 
 import java.util.List;
@@ -12,5 +13,9 @@ public interface ItemCatService {
 
     public List<ItemCat> findAll();
 
-    public Boolean itemcatadd(ItemCat itemCat);
+    public void updateStatus(Long[] ids, String status);
+
+    public PageResult search(ItemCat itemCat, Integer page, Integer rows);
+
+    public Boolean save(String itemcat,Long id);
 }

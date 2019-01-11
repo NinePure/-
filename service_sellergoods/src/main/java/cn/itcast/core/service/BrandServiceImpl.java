@@ -90,17 +90,43 @@ public class BrandServiceImpl implements BrandService {
 //    品牌申请
 
     @Override
-    public void brandadd(Brand brand) {
-            if (brand.getName()!=null &&!"".equals(brand.getName())){
+    public Boolean save(String username) {
+
+        BrandQuery query = new BrandQuery();
+        BrandQuery.Criteria criteria = query.createCriteria();
+        criteria.andNameEqualTo(username);
+        List<Brand> brandList = brandDao.selectByExample(query);
+//        封装品牌数据
+        if (brandList==null){
+            Brand brand= new Brand();
+//            获取品牌名
+            brand.setName(username);
 //            更据品牌名获取汉字的首字母并大写
-            String firstname = String.valueOf(FirstLetterUtil.getFirstLetter(brand.getName()).toUpperCase().charAt(0));
-//            分装品牌数据
-            brand.setName(brand.getName());
+            String firstname = String.valueOf(FirstLetterUtil.getFirstLetter(username).toUpperCase().charAt(0));
             brand.setFirstChar(firstname);
             brand.setBrStatus("0");
             brandDao.insertSelective(brand);
+            return true;
+        }else {
+            return false;
+        }
+    }
 
+
+    /**
+     * 审核
+     * @param ids
+     * @param status
+     */
+    @Override
+    public void updateStatus(Long[] ids, String status) {
+        if (ids != null) {
+            for (Long id : ids) {
+                Brand brand=new Brand();
+                brand.setId(id);
+                brand.setBrStatus(status);
+               brandDao.updateByPrimaryKeySelective(brand);
             }
         }
-
     }
+}

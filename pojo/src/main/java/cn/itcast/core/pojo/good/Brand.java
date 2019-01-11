@@ -15,19 +15,10 @@ public class Brand implements Serializable {
      */
     private String firstChar;
 
+    /**
+     * 状态
+     */
     private String brStatus;
-
-    public String getBrStatus() {
-        return brStatus;
-    }
-
-    public void setBrStatus(String brStatus) {
-        this.brStatus = brStatus;
-    }
-
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
 
     private static final long serialVersionUID = 1L;
 
@@ -55,6 +46,14 @@ public class Brand implements Serializable {
         this.firstChar = firstChar == null ? null : firstChar.trim();
     }
 
+    public String getBrStatus() {
+        return brStatus;
+    }
+
+    public void setBrStatus(String brStatus) {
+        this.brStatus = brStatus == null ? null : brStatus.trim();
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -64,6 +63,7 @@ public class Brand implements Serializable {
         sb.append(", id=").append(id);
         sb.append(", name=").append(name);
         sb.append(", firstChar=").append(firstChar);
+        sb.append(", brStatus=").append(brStatus);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
@@ -83,7 +83,8 @@ public class Brand implements Serializable {
         Brand other = (Brand) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
-            && (this.getFirstChar() == null ? other.getFirstChar() == null : this.getFirstChar().equals(other.getFirstChar()));
+            && (this.getFirstChar() == null ? other.getFirstChar() == null : this.getFirstChar().equals(other.getFirstChar()))
+            && (this.getBrStatus() == null ? other.getBrStatus() == null : this.getBrStatus().equals(other.getBrStatus()));
     }
 
     @Override
@@ -93,6 +94,7 @@ public class Brand implements Serializable {
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
         result = prime * result + ((getFirstChar() == null) ? 0 : getFirstChar().hashCode());
+        result = prime * result + ((getBrStatus() == null) ? 0 : getBrStatus().hashCode());
         return result;
     }
 }

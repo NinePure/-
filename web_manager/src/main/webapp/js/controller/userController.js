@@ -6,11 +6,11 @@ app.controller("userController",function($scope,$controller,$http,userService){
 	
 	// 查询一个:
 	$scope.findById = function(id){
-		userService.findById(id).success(function(response){
-			// {id:xx,name:yy,firstChar:zz}
-			$scope.entity = response;
-		});
-	}
+        userService.findById(id).success(function(response){
+            // {id:xx,name:yy,firstChar:zz}
+            $scope.entity = response;
+        });
+    }
 	
 	// 冻结用户:
 	$scope.frozenUser = function(){
@@ -38,5 +38,26 @@ app.controller("userController",function($scope,$controller,$http,userService){
 			$scope.list = response.rows;
 		});
 	}
-	
+
+    $scope.userCount = function(){
+        userService.userCount().success(function(response){
+
+            $scope.count = response;
+        });
+    }
+
+    $scope.wau = function(){
+        userService.wau().success(function(response){
+
+            $scope.number = response;
+        });
+    }
+
+    $scope.noWau = function(){
+        userService.noWau().success(function(response){
+
+            $scope.noNumber = response;
+        });
+    }
+
 });

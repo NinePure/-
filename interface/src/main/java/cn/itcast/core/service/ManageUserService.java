@@ -2,6 +2,7 @@ package cn.itcast.core.service;
 
 import cn.itcast.core.pojo.entity.PageResult;
 import cn.itcast.core.pojo.user.User;
+import cn.itcast.core.pojo.user.UserLog;
 
 import java.util.List;
 
@@ -24,5 +25,16 @@ public interface ManageUserService {
     PageResult findPage(User user, Integer page, Integer rows);
 
     //修改权限
-    List<User> updateAuthority();
+    String updateAuthority(String username);
+
+    //根据用户名查询id
+    Long findIdByUsername(String username);
+
+    //封装UserLog表数据
+    void addUserLog(UserLog userLog);
+
+    //根据UserLog表查询User表countWeek数据
+    void queryCount();
+
+
 }
