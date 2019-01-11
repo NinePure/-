@@ -14,7 +14,7 @@ import java.util.List;
  *
  */
 @RestController
-@RequestMapping("/itemCat")
+@RequestMapping("/itemcat")
 public class ItemCatController {
 
     @Reference
