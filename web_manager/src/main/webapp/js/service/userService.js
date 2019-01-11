@@ -14,4 +14,13 @@ app.service("userService",function($http){
 		return $http.post("../manageUser/search.do?page="+page+"&rows="+rows,searchEntity);
 	}
 
+
+    this.wau = function(){
+        return $http.get("../manageUser/wau.do");
+    }
+
+    this.noWau = function(){
+        return $http.get("../manageUser/noWau.do");
+    }
+
 });

@@ -1,8 +1,10 @@
 package cn.itcast.core.service;
 
 import cn.itcast.core.dao.user.UserDao;
+import cn.itcast.core.dao.user.UserLogDao;
 import cn.itcast.core.pojo.entity.PageResult;
 import cn.itcast.core.pojo.user.User;
+import cn.itcast.core.pojo.user.UserLog;
 import cn.itcast.core.pojo.user.UserQuery;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.github.pagehelper.Page;
@@ -10,6 +12,8 @@ import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 @Service
 @Transactional
@@ -17,6 +21,8 @@ public class ManageUserServiceImpl implements ManageUserService {
 
     @Autowired
     private UserDao userDao;
+    @Autowired
+    private UserLogDao userLogDao;
 
 
     //运营商后台-用户管理（冻结）  用户冻结后无法登陆,下单  1冻结  0正常
@@ -44,9 +50,12 @@ public class ManageUserServiceImpl implements ManageUserService {
     @Override
     public Integer wau() {
 //TODO ...
+        //调用更新方法
+        queryCount();
+
         UserQuery query = new UserQuery();
         UserQuery.Criteria criteria = query.createCriteria();
-        criteria.andCountWeekGreaterThanOrEqualTo("3");
+        criteria.andCountWeekGreaterThanOrEqualTo("2");
         List<User> userList = userDao.selectByExample(query);
         if (userList!=null && !"".equals(userList)){
             return userList.size();
@@ -82,16 +91,68 @@ public class ManageUserServiceImpl implements ManageUserService {
         return new PageResult(userList.getTotal(), userList.getResult());
     }
 
-
     //修改权限
     @Override
-    public List<User> updateAuthority() {
+    public String updateAuthority(String username) {
         UserQuery query = new UserQuery();
         UserQuery.Criteria criteria = query.createCriteria();
-        criteria.andIsFrozenEqualTo("1");
-        List<User> userList = userDao.selectByExample(query);
-        return userList;
+        criteria.andUsernameEqualTo(username);
+        List<User> users = userDao.selectByExample(query);
+        if (users!=null){
+            for (User user : users) {
+                return user.getIsFrozen();
+            }
+        }
+        return null;
     }
+
+    //根据用户名查询id
+    @Override
+    public Long findIdByUsername(String username){
+        UserQuery query = new UserQuery();
+        UserQuery.Criteria criteria = query.createCriteria();
+        criteria.andUsernameEqualTo(username);
+        List<User> users = userDao.selectByExample(query);
+        if (users!=null){
+            for (User user : users) {
+                return user.getId();
+            }
+        }
+        return null;
+    }
+
+    //封装UserLog表数据
+    @Override
+    public void addUserLog(UserLog userLog) {
+        userLogDao.updateByExampleSelective(userLog,null);
+    }
+
+    //根据UserLog表查询数据,放入User表countWeek
+    @Override
+    public void queryCount() {
+        List<Map> mapList = userLogDao.selectUserLoginCount();
+        if (mapList!=null){
+            for (Map map : mapList) {
+                for (Object o : map.keySet()) {
+                    String username =  o +"";
+                    String countWeek = map.get(o) + "";
+                    UserQuery query = new UserQuery();
+                    UserQuery.Criteria criteria = query.createCriteria();
+                    criteria.andUsernameEqualTo(username);
+                    List<User> users = userDao.selectByExample(query);
+                    if (users!=null){
+                        for (User user : users) {
+                            user.setCountWeek(countWeek);
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+
+
+
 
 
 }

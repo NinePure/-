@@ -3,6 +3,8 @@ package cn.itcast.core.dao.user;
 import cn.itcast.core.pojo.user.UserLog;
 import cn.itcast.core.pojo.user.UserLogQuery;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface UserLogDao {
@@ -19,4 +21,6 @@ public interface UserLogDao {
     int updateByExampleSelective(@Param("record") UserLog record, @Param("example") UserLogQuery example);
 
     int updateByExample(@Param("record") UserLog record, @Param("example") UserLogQuery example);
+
+    public List<Map> selectUserLoginCount();
 }
