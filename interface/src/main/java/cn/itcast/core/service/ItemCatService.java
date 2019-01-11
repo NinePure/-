@@ -12,5 +12,5 @@ public interface ItemCatService {
 
     public List<ItemCat> findAll();
 
-    public Boolean save(String itemcat,Long id);
+    public Boolean itemcatadd(ItemCat itemCat);
 }

@@ -27,17 +27,17 @@
     <script type="text/javascript" src="../js/base.js"></script>
 
     <script type="text/javascript" src="../js/service/brandService.js"></script>
-    <script type="text/javascript" src="../js/service/itemCatService.js"></script>
+    <script type="text/javascript" src="../js/service/newitemcatService.js"></script>
     <script type="text/javascript" src="../js/service/uploadService.js"></script>
     <script type="text/javascript" src="../js/service/typeTemplateService.js"></script>
 
     <script type="text/javascript" src="../js/controller/baseController.js"></script>
-    <script type="text/javascript" src="../js/controller/brandController.js"></script>
+    <script type="text/javascript" src="../js/controller/newitemcatController.js"></script>
 
 
 </head>
 
-<body class="hold-transition skin-red sidebar-mini" ng-app="pinyougou" ng-controller="brandController">
+<body class="hold-transition skin-red sidebar-mini" ng-app="pinyougou" ng-controller="newitemcatController">
 
 <!-- 正文区域 -->
 <section class="content">
@@ -50,7 +50,7 @@
             <!--tab头-->
             <ul class="nav nav-tabs">
                 <li class="active">
-                    <a href="#home" data-toggle="tab">品牌基本信息</a>
+                    <a href="#home" data-toggle="tab">一级分类申请信息</a>
                 </li>
             </ul>
             <!--tab头/-->
@@ -61,9 +61,9 @@
                 <!--表单内容-->
                 <div class="tab-pane active" id="home">
                     <div class="row data-type">
-                        <div class="col-md-2 title">品牌名称</div>
+                        <div class="col-md-2 title">一级分类名称</div>
                         <div class="col-md-10 data">
-                            <input type="text" ng-model="entity.name" class="form-control" placeholder="品牌名称">
+                            <input type="text" ng-model="entity.name" class="form-control" placeholder="一级分类名称">
                         </div>
                     </div>
                 </div>
@@ -72,7 +72,7 @@
 
     </div>
     <div class="btn-toolbar list-toolbar">
-        <button class="btn btn-primary" ng-click="add()"><i class="fa fa-save"></i>品牌申请</button>
+        <button class="btn btn-primary" ng-click="itemcatadd()"><i class="fa fa-save"></i>分类申请</button>
     </div>
 
 </section>
