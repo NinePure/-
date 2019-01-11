@@ -20,7 +20,7 @@ public class BrandController {
     @RequestMapping("/add")
     public Result save(@RequestBody Brand brand){
         try {
-            brandService.brandadd(brand);
+            brandService.add(brand);
             return new Result(true,"申请成功");
         } catch (Exception e) {
             e.printStackTrace();

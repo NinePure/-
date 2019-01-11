@@ -200,7 +200,7 @@
         type_id = #{typeId,jdbcType=BIGINT},
       </if>
       <if test="status != null" >
-       status = #{catStatus,jdbcType=VARCHAR},
+       status = #{status,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
