@@ -20,6 +20,7 @@ app.controller('userController' ,function($scope,$controller   ,userService,logi
         loginService.showName().success(
             function(response){
                 $scope.loginName=response.loginName;
+                $scope.picPath=response.picPath;
             }
         );
     }

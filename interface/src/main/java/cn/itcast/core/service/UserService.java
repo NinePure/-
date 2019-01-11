@@ -15,4 +15,6 @@ public interface UserService {
     public  void  addUserSpec(String username,UserSpecEntity userSpecEntity);
 
     void addHeadPic(String name, String path);
+
+    String getHeadPic(String username);
 }
