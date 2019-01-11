@@ -124,7 +124,7 @@ public class ManageUserServiceImpl implements ManageUserService {
     //封装UserLog表数据
     @Override
     public void addUserLog(UserLog userLog) {
-        userLogDao.updateByExampleSelective(userLog,null);
+        userLogDao.insertSelective(userLog);
     }
 
     //根据UserLog表查询数据,放入User表countWeek

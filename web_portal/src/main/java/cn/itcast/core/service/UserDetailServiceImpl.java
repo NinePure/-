@@ -32,23 +32,26 @@ public class UserDetailServiceImpl implements UserDetailsService {
         //定义权限集合
         List<GrantedAuthority> authList = new ArrayList<>();
 
+        //获取冻结状态
         String isFrozen = manageUserService.updateAuthority(username);
         if ("1".equals(isFrozen)){
             //向权限集合中加入访问权限
             authList.add(new SimpleGrantedAuthority("ROLE_NO"));
             return new User(username, "", authList);
+        }else{
+            //封装UserLog
+            Long idByUsername = manageUserService.findIdByUsername(username);
+            UserLog userLog = new UserLog();
+            userLog.setId(idByUsername);
+            userLog.setUsername(username);
+            userLog.setLoginTime(new Date());
+            manageUserService.addUserLog(userLog);
+            //向权限集合中加入访问权限
+            authList.add(new SimpleGrantedAuthority("ROLE_USER"));
+            return new User(username, "", authList);
         }
 
-        //向权限集合中加入访问权限
-        authList.add(new SimpleGrantedAuthority("ROLE_USER"));
-        //封装UserLog
-        Long idByUsername = manageUserService.findIdByUsername(username);
-        UserLog userLog = new UserLog();
-        userLog.setId(idByUsername);
-        userLog.setUsername(username);
-        userLog.setLoginTime(new Date());
-        manageUserService.addUserLog(userLog);
-        return new User(username, "", authList);
+
 
     }
 }
