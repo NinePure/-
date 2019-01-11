@@ -39,6 +39,12 @@ app.controller("userController",function($scope,$controller,$http,userService){
 		});
 	}
 
+    $scope.userCount = function(){
+        userService.userCount().success(function(response){
+
+            $scope.count = response;
+        });
+    }
 
     $scope.wau = function(){
         userService.wau().success(function(response){

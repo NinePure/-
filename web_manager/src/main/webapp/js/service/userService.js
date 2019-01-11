@@ -15,6 +15,10 @@ app.service("userService",function($http){
 	}
 
 
+    this.userCount = function(){
+        return $http.get("../manageUser/userCount.do");
+    }
+
     this.wau = function(){
         return $http.get("../manageUser/wau.do");
     }
