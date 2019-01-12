@@ -52,5 +52,14 @@ app.service('userService', function ($http) {
     this.addSpec = function (entity) {
         return $http.post('../user/addSpec.do', entity);
     }
+    this.findAddress = function () {
+        return $http.post('../user/findAddress.do');
+    }
+    this.saveAddress = function (entity) {
+        return $http.post('../user/saveAddress.do', entity);
+    }
+    this.setDefault = function (id) {
+        return $http.post('../user/setDefault.do?id='+id);
+    }
 
 });

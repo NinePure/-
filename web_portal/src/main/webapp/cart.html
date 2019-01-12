@@ -58,7 +58,7 @@
 		</div>
 		<!--All goods-->
 		<div class="allgoods">
-			<h4>全部商品<span>11</span></h4>
+			<h4>全部商品</h4>
 			<div class="cart-main">
 				<div class="yui3-g cart-th">
 					<div class="yui3-u-1-4"><input type="checkbox" name="" id="" value="" /> 全部</div>
@@ -81,12 +81,12 @@
 								</li>
 								<li class="yui3-u-11-24">
 									<div class="good-item">
-										<input type="hidden" name="itemId" ng-model="{{item.id}}"/>
+										<!--<input type="hidden" name="itemId" ng-model="{{item.itemid}}"/>-->
 										<div class="item-img"><img src="{{item.picPath}}" /></div>
 										<div class="item-msg">{{item.title}}</div>
 									</div>
 								</li>
-								
+
 								<li class="yui3-u-1-8"><span class="price">{{item.price}}</span></li>
 								<li class="yui3-u-1-8">
 									<a href="javascript:void(0)" class="increment mins" ng-click="addGoodsToCartList(item.itemId,-1)">-</a>

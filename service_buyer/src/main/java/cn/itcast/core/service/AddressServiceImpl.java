@@ -22,4 +22,23 @@ public class AddressServiceImpl implements AddressService {
         List<Address> addressList = addressDao.selectByExample(query);
         return addressList;
     }
+
+    @Override
+    public void saveAddress(Address address) {
+        address.setIsDefault("0");
+        addressDao.insertSelective(address);
+    }
+
+    @Override
+    public void setDefault(String name, String id) {
+        AddressQuery addressQuery = new AddressQuery();
+        AddressQuery.Criteria criteria = addressQuery.createCriteria();
+        criteria.andUserIdEqualTo(name);
+        Address address = new Address();
+        address.setIsDefault("0");
+        addressDao.updateByExampleSelective(address, addressQuery);
+        address.setIsDefault("1");
+        address.setId(Long.parseLong(id));
+        addressDao.updateByPrimaryKeySelective(address);
+    }
 }

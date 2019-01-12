@@ -8,13 +8,26 @@
     <title>设置-个人信息</title>
      <link rel="icon" href="assets/img/favicon.ico">
 
-    <link rel="stylesheet" type="text/css" href="css/webbase.css" />
-    <link rel="stylesheet" type="text/css" href="css/pages-seckillOrder.css" />
+	<link rel="stylesheet" type="text/css" href="css/webbase.css" />
+	<link rel="stylesheet" type="text/css" href="css/pages-seckillOrder.css" />
+
+	<script type="text/javascript" src="plugins/angularjs/angular.min.js"></script>
+
+	<script type="text/javascript" src="plugins/angularjs/pagination.js"></script>
+	<link rel="stylesheet" href="plugins/angularjs/pagination.css">
+
+	<script type="text/javascript" src="js/base_pagination.js"></script>
+	<script type="text/javascript" src="js/service/loginService.js"></script>
+	<!--<script type="text/javascript" src="js/controller/indexController.js"></script>-->
+	<script type="text/javascript" src="js/controller/baseController.js"></script>
+	<script type="text/javascript" src="js/controller/userController.js"></script>
+	<script type="text/javascript" src="js/service/userService.js"></script>
+
 </head>
 
-<body>
-    <!-- 头部栏位 -->
-    <!--页面顶部-->
+<body class="hold-transition skin-red sidebar-mini" ng-app="pinyougou" ng-controller="userController" ng-init="showName();findAddress()">
+<!-- 头部栏位 -->
+<!--页面顶部-->
 <div id="nav-bottom">
 	<!--顶部-->
 	<div class="nav-top">
@@ -23,7 +36,7 @@
 				<div class="shortcut">
 					<ul class="fl">
 						<li class="f-item">品优购欢迎您！</li>
-						<li class="f-item">请<a href="login.html" target="_blank">登录</a>　<span><a href="register.html" target="_blank">免费注册</a></span></li>
+						<li class="f-item" ng-if="loginName==null">请<a href="login/cas" target="_blank">登录</a>　<span><a href="register.html" target="_blank">免费注册</a></span></li>
 					</ul>
 					<ul class="fr">
 						<li class="f-item">我的订单</li>
@@ -86,7 +99,7 @@
 						<div class="fr shopcar">
 							<div class="show-shopcar" id="shopcar">
 								<span class="car"></span>
-								<a class="sui-btn btn-default btn-xlarge" href="cart.html" target="_blank">
+								<a class="sui-btn btn-default btn-xlarge" href="http://localhost:8080/cart.html" target="_blank">
 									<span>我的购物车</span>
 									<i class="shopnum">0</i>
 								</a>
@@ -124,68 +137,65 @@
 
 <script type="text/javascript" src="js/plugins/jquery/jquery.min.js"></script>
 <script type="text/javascript">
-$(function(){
-	$("#service").hover(function(){
-		$(".service").show();
-	},function(){
-		$(".service").hide();
-	});
-	$("#shopcar").hover(function(){
-		$("#shopcarlist").show();
-	},function(){
-		$("#shopcarlist").hide();
-	});
+    $(function(){
+        $("#service").hover(function(){
+            $(".service").show();
+        },function(){
+            $(".service").hide();
+        });
+        $("#shopcar").hover(function(){
+            $("#shopcarlist").show();
+        },function(){
+            $("#shopcarlist").hide();
+        });
 
-})
+    })
 </script>
 <script type="text/javascript" src="js/plugins/jquery.easing/jquery.easing.min.js"></script>
 <script type="text/javascript" src="js/plugins/sui/sui.min.js"></script>
 <script type="text/javascript" src="js/plugins/jquery-placeholder/jquery.placeholder.min.js"></script>
 <script type="text/javascript" src="js/widget/nav.js"></script>
-<script type="text/javascript" src="pages/userInfo/distpicker.data.js"></script>
-<script type="text/javascript" src="pages/userInfo/distpicker.js"></script>
-<script type="text/javascript" src="pages/userInfo/main.js"></script>
-</body>
-    <!--header-->
-    <div id="account">
-        <div class="py-container">
-            <div class="yui3-g home">
-                <!--左侧列表-->
-                <div class="yui3-u-1-6 list">
 
-                    <div class="person-info">
-                        <div class="person-photo"><img src="img/_/photo.png" alt=""></div>
-                        <div class="person-account">
-                            <span class="name">Michelle</span>
-                            <span class="safe">账户安全</span>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="list-items">
-                        <dl>
-							<dt><i>·</i> 订单中心</dt>
-							<dd ><a href="home-index.html"   >我的订单</a></dd>
-							<dd><a href="home-order-pay.html" >待付款</a></dd>
-							<dd><a href="home-order-send.html"  >待发货</a></dd>
-							<dd><a href="home-order-receive.html" >待收货</a></dd>
-							<dd><a href="home-order-evaluate.html" >待评价</a></dd>
-						</dl>
-						<dl>
-							<dt><i>·</i> 我的中心</dt>
-							<dd><a href="home-person-collect.html" >我的收藏</a></dd>
-							<dd><a href="home-person-footmark.html" >我的足迹</a></dd>
-						</dl>
-						<dl>
-							<dt><i>·</i> 物流消息</dt>
-						</dl>
-						<dl>
-							<dt><i>·</i> 设置</dt>
-							<dd><a href="home-setting-info.html" >个人信息</a></dd>
-							<dd><a href="home-setting-address.html" class="list-active" >地址管理</a></dd>
-							<dd><a href="home-setting-safe.html" >安全管理</a></dd>
-						</dl>
-                    </div>
-                </div>
+<!--header-->
+<div id="account">
+	<div class="py-container">
+		<div class="yui3-g home">
+			<!--左侧列表-->
+			<div class="yui3-u-1-6 list">
+
+				<div class="person-info">
+					<div class="person-photo"><img width="48" height="48" src="{{picPath}}" alt=""></div>
+					<div class="person-account">
+						<span class="name">{{loginName}}</span>
+						<span class="safe"><a href="logout/cas">退出登录 </a></span>
+					</div>
+					<div class="clearfix"></div>
+				</div>
+				<div class="list-items">
+					<dl>
+						<dt><i>·</i> 订单中心</dt>
+						<dd ><a href="home-index.html">我的订单</a></dd>
+						<dd><a href="home-order-pay.html" >待付款</a></dd>
+						<dd><a href="home-order-send.html"  >待发货</a></dd>
+						<dd><a href="home-order-receive.html" >待收货</a></dd>
+						<dd><a href="home-order-evaluate.html" >待评价</a></dd>
+					</dl>
+					<dl>
+						<dt><i>·</i> 我的中心</dt>
+						<dd><a href="home-person-collect.html">我的收藏</a></dd>
+						<dd><a href="home-person-footmark.html">我的足迹</a></dd>
+					</dl>
+					<dl>
+						<dt><i>·</i> 物流消息</dt>
+					</dl>
+					<dl>
+						<dt><i>·</i> 设置</dt>
+						<dd><a href="home-setting-info.html">个人信息</a></dd>
+						<dd><a href="home-setting-address.html"   class="list-active"  >地址管理</a></dd>
+						<dd><a href="home-setting-safe.html" >安全管理</a></dd>
+					</dl>
+				</div>
+			</div>
                 <!--右侧主内容-->
                 <div class="yui3-u-5-6">
                     <div class="body userAddress">
@@ -205,29 +215,34 @@ $(function(){
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>刘田田</td>
-                                        <td>北京 北京市 海淀区 上地街道东北旺西路8号中关村软件园9号楼</td>
-                                        <td>1774***********4</td>
-                                        <td>
+                                    <tr ng-repeat="address in list">
+                                        <td>{{address.contact}}</td>
+                                        <td>{{address.address}}</td>
+                                        <td>{{address.mobile}}</td>
+                                        <td ng-if="address.isDefault==1">
                                             <a href="#">编辑</a>
                                             <a href="#">删除</a>
                                             默认地址
                                         </td>
-                                    </tr>
-                                    <tr>
-                                        <td>沈沉</td>
-                                        <td>北京 北京市 海淀区 上地街道东北旺西路8号中关村软件园9号楼</td>
-                                        <td>1774***********4</td>
-                                        <td>
-                                            <a href="#">编辑</a>
-                                            <a href="#">删除</a>
-                                            <a href="#">设为默认</a>
+										<td ng-if="address.isDefault==0">
+											<a href="#">编辑</a>
+											<a href="#">删除</a>
+											<a href="#" ng-click="setDefault(address.id)">设为默认</a>
                                         </td>
                                     </tr>
-                                    
+                                    <!--<tr>-->
+                                        <!--<td>沈沉</td>-->
+                                        <!--<td>北京 北京市 海淀区 上地街道东北旺西路8号中关村软件园9号楼</td>-->
+                                        <!--<td>1774***********4</td>-->
+                                        <!--<td>-->
+                                            <!--<a href="#">编辑</a>-->
+                                            <!--<a href="#">删除</a>-->
+                                            <!--<a href="#">设为默认</a>-->
+                                        <!--</td>-->
+                                    <!--</tr>-->
+
                                 </tbody>
-                            </table>                          
+                            </table>
                         </div>
                         <!--新增地址弹出层-->
                          <div  tabindex="-1" role="dialog" data-hasfoot="false" class="sui-modal hide fade edit" style="width:580px;">
@@ -242,59 +257,59 @@ $(function(){
                                             <div class="control-group">
                                             <label class="control-label">收货人：</label>
                                             <div class="controls">
-                                                <input type="text" class="input-medium">
+                                                <input type="text" ng-model="entity.contact" class="input-medium">
                                             </div>
                                         </div>
-                                        <div class="control-group">
-                                            <label class="control-label">所在地区：</label>
-                                            <div class="controls">
-                                                <div data-toggle="distpicker">
-                                                <div class="form-group area">
-                                                    <select class="form-control" id="province1"></select>
-                                                </div>
-                                                <div class="form-group area">
-                                                    <select class="form-control" id="city1"></select>
-                                                </div>
-                                                <div class="form-group area">
-                                                    <select class="form-control" id="district1"></select>
-                                                </div>
-                                            </div>
-                                            </div>									 
-                                        </div>
+                                        <!--<div class="control-group">-->
+                                            <!--<label class="control-label">所在地区：</label>-->
+                                            <!--<div class="controls">-->
+                                                <!--<div data-toggle="distpicker">-->
+                                                <!--<div class="form-group area">-->
+                                                    <!--<select class="form-control" id="province1"></select>-->
+                                                <!--</div>-->
+                                                <!--<div class="form-group area">-->
+                                                    <!--<select class="form-control" id="city1"></select>-->
+                                                <!--</div>-->
+                                                <!--<div class="form-group area">-->
+                                                    <!--<select class="form-control" id="district1"></select>-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                            <!--</div>									 -->
+                                        <!--</div>-->
                                         <div class="control-group">
                                             <label class="control-label">详细地址：</label>
                                             <div class="controls">
-                                                <input type="text" class="input-large">
+                                                <input type="text" ng-model="entity.address" class="input-large">
                                             </div>
                                         </div>
                                         <div class="control-group">
                                             <label class="control-label">联系电话：</label>
                                             <div class="controls">
-                                                <input type="text" class="input-medium">
+                                                <input type="text" ng-model="entity.mobile" class="input-medium">
                                             </div>
                                         </div>
-                                        <div class="control-group">
-                                            <label class="control-label">邮箱：</label>
-                                            <div class="controls">
-                                                <input type="text" class="input-medium">
-                                            </div>
-                                        </div>
+                                        <!--<div class="control-group">-->
+                                            <!--<label class="control-label">邮箱：</label>-->
+                                            <!--<div class="controls">-->
+                                                <!--<input type="text" ng-model="entity.email" class="input-medium">-->
+                                            <!--</div>-->
+                                        <!--</div>-->
                                         <div class="control-group">
                                             <label class="control-label">地址别名：</label>
                                             <div class="controls">
-                                                <input type="text" class="input-medium">
+                                                <input type="text" ng-model="entity.alias" class="input-medium">
                                             </div>
                                             <div class="othername">
                                                 建议填写常用地址：<a href="#" class="sui-btn btn-default">家里</a>　<a href="#" class="sui-btn btn-default">父母家</a>　<a href="#" class="sui-btn btn-default">公司</a>
                                             </div>
                                         </div>
-                                        
+
                                         </form>
-                                        
-                                        
+
+
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" data-ok="modal" class="sui-btn btn-primary btn-large">确定</button>
+                                        <button type="button" data-ok="modal" ng-click="saveAddress()" class="sui-btn btn-primary btn-large">确定</button>
                                         <button type="button" data-dismiss="modal" class="sui-btn btn-default btn-large">取消</button>
                                     </div>
                                 </div>
@@ -441,7 +456,6 @@ $(function(){
 <!--页面底部END-->
 
 
-
-undefined
+</body>
 
 </html>
