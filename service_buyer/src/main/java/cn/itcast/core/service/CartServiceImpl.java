@@ -188,7 +188,8 @@ public class CartServiceImpl implements CartService {
     @Override
     public void addGoodsToConllect(String userName,Long itemid) {
         //1.通过id获取商品详情  将数据添加到集合中
-        List<Item> itemList = new ArrayList<>();
+        List<Item> itemList = (List<Item>) redisTemplate.boundHashOps(Constants.COLLECT_LIST_REDIS).get(userName);
+//        List<Item> itemList = new ArrayList<>();
         Item item = itemDao.selectByPrimaryKey(itemid);
         itemList.add(item);
         //2.将数据存储到redis中

@@ -61,5 +61,8 @@ app.service('userService', function ($http) {
     this.setDefault = function (id) {
         return $http.post('../user/setDefault.do?id='+id);
     }
+    this.findCollect = function () {
+        return $http.post('../user/findCollect.do');
+    }
 
 });

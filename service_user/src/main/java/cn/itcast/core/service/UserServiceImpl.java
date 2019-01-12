@@ -2,8 +2,10 @@ package cn.itcast.core.service;
 
 import cn.itcast.core.dao.user.UserDao;
 import cn.itcast.core.pojo.entity.UserSpecEntity;
+import cn.itcast.core.pojo.item.Item;
 import cn.itcast.core.pojo.user.User;
 import cn.itcast.core.pojo.user.UserQuery;
+import cn.itcast.core.util.Constants;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.alibaba.fastjson.JSON;
 import org.apache.activemq.command.ActiveMQQueue;
@@ -140,6 +142,12 @@ public class UserServiceImpl implements UserService {
         List<User> userList = userDao.selectByExample(userQuery);
         String headPic = userList.get(0).getHeadPic();
         return headPic;
+    }
+
+    @Override
+    public List<Item> findCollect(String userName) {
+        List<Item> itemList = (List<Item>) redisTemplate.boundHashOps(Constants.COLLECT_LIST_REDIS).get(userName);
+        return itemList;
     }
 
     public static void main(String[] args) {

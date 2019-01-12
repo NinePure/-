@@ -3,6 +3,7 @@ package cn.itcast.core.controller;
 import cn.itcast.core.pojo.address.Address;
 import cn.itcast.core.pojo.entity.Result;
 import cn.itcast.core.pojo.entity.UserSpecEntity;
+import cn.itcast.core.pojo.item.Item;
 import cn.itcast.core.pojo.user.User;
 import cn.itcast.core.service.AddressService;
 import cn.itcast.core.service.UserService;
@@ -119,6 +120,12 @@ public class UserController {
             e.printStackTrace();
             return new Result(false, "设置失败");
         }
+    }
+
+    @RequestMapping("/findCollect")
+    public List<Item> findCollect() {
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+        return userService.findCollect(name);
     }
 
 }

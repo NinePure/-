@@ -1,8 +1,10 @@
 package cn.itcast.core.service;
 
-import cn.itcast.core.pojo.entity.Result;
 import cn.itcast.core.pojo.entity.UserSpecEntity;
+import cn.itcast.core.pojo.item.Item;
 import cn.itcast.core.pojo.user.User;
+
+import java.util.List;
 
 public interface UserService {
 
@@ -17,4 +19,6 @@ public interface UserService {
     void addHeadPic(String name, String path);
 
     String getHeadPic(String username);
+
+    List<Item> findCollect(String userName);
 }

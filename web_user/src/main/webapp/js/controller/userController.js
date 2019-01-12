@@ -2,15 +2,19 @@
 app.controller('userController' ,function($scope,$controller   ,userService,loginService){
     $controller('baseController',{$scope:$scope});//继承
 	//注册用户
+    $scope.findCollect = function() {
+        userService.findCollect().success(
+            function (response) {
+           $scope.collectList=response;
+        });
+    };
     $scope.findAddress = function() {
-        // 调用userService的方法完成文件的上传
         userService.findAddress().success(
             function (response) {
            $scope.list=response;
         });
     };
     $scope.saveAddress = function() {
-        // 调用userService的方法完成文件的上传
         userService.saveAddress($scope.entity).success(
             function (response) {
                 alert(response.message);
@@ -18,6 +22,7 @@ app.controller('userController' ,function($scope,$controller   ,userService,logi
         );
     };
     $scope.setDefault = function(id) {
+        alert(aaa);
         // 调用userService的方法完成文件的上传
         userService.setDefault(id).success(
             function (response) {
