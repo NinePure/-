@@ -1,8 +1,10 @@
 package cn.itcast.core.controller;
 
+import cn.itcast.core.pojo.address.Address;
 import cn.itcast.core.pojo.entity.Result;
 import cn.itcast.core.pojo.entity.UserSpecEntity;
 import cn.itcast.core.pojo.user.User;
+import cn.itcast.core.service.AddressService;
 import cn.itcast.core.service.UserService;
 import cn.itcast.core.util.PhoneFormatCheckUtils;
 import com.alibaba.dubbo.config.annotation.Reference;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
+import java.util.List;
 
 @RestController
 @RequestMapping("/user")
@@ -19,6 +22,9 @@ public class UserController {
 
     @Reference
     private UserService userService;
+
+    @Reference
+    private AddressService addressService;
 
     /**
      * 发送验证码
@@ -80,6 +86,38 @@ public class UserController {
         } catch (Exception e) {
             e.printStackTrace();
             return new Result(false, "保存失败");
+        }
+    }
+
+    @RequestMapping("/findAddress")
+    public List<Address> findAddress() {
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+        List<Address> addressList = addressService.findAddressListByUserName(name);
+        return addressList;
+    }
+
+    @RequestMapping("/saveAddress")
+    public Result saveAddress(@RequestBody Address address) {
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+        address.setUserId(name);
+        try {
+            addressService.saveAddress(address);
+            return new Result(true, "保存成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Result(false, "保存失败");
+        }
+    }
+
+    @RequestMapping("/setDefault")
+    public Result setDefault(String id) {
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+        try {
+            addressService.setDefault(name,id);
+            return new Result(true, "设置成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Result(false, "设置失败");
         }
     }
 

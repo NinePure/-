@@ -18,4 +18,7 @@ public interface ItemCatService {
     public PageResult search(ItemCat itemCat, Integer page, Integer rows);
 
     public Boolean save(String itemcat,Long id);
+
+    //    添加分类申请
+    Boolean itemcatadd(ItemCat itemCat);
 }

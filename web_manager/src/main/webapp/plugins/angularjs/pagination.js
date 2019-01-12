@@ -3,7 +3,6 @@
  * Version: 0.0.2
  */
 angular.module('pagination', []).directive('tmPagination', [function () {
-    alert("aaaa")
     return {
         restrict: 'EA',
         template: '<div class="page-list">' +

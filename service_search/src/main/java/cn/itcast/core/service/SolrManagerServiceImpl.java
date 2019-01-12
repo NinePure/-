@@ -38,7 +38,7 @@ public class SolrManagerServiceImpl implements SolrManagerService {
                 String specJsonStr = item.getSpec();
                 //将json转换成map
                 Map map = JSON.parseObject(specJsonStr, Map.class);
-                item.setSpecMap(map);
+                //item.setSpecMap(map);
             }
             //将数据保存到solr索引库
             solrTemplate.saveBeans(items);

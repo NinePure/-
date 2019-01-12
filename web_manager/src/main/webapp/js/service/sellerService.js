@@ -33,4 +33,16 @@ app.service('sellerService',function($http){
 	this.updateStatus = function(sellerId,status){
 		return $http.get('../seller/updateStatus.do?sellerId='+sellerId+"&status="+status);
 	}
+
+    //商品导出
+    this.goods=function(){
+        return $http.get('/goods/excelGoods.do');
+    }
+
+
+
+    //订单导出
+    this.order=function(){
+        return $http.get('/order/excelOrder.do');
+    }
 });
