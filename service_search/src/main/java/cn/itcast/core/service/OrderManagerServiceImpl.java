@@ -6,13 +6,14 @@ import cn.itcast.core.pojo.entity.SellMoney;
 import cn.itcast.core.pojo.log.PayLog;
 import cn.itcast.core.pojo.order.Order;
 import cn.itcast.core.pojo.order.OrderQuery;
+import com.alibaba.dubbo.config.annotation.Service;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Date;
-
-public class OrderServiceImpl implements OrderManagerService {
+@Service
+public class OrderManagerServiceImpl implements OrderManagerService {
 
     @Autowired
     private OrderDao orderDao;
