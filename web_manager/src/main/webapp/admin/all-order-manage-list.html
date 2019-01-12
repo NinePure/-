@@ -37,7 +37,7 @@
 
         <div class="box-tools pull-right">
             <div class="has-feedback">
-                订单编号:<input type="text" ng-model="searchEntity.name">  <input class="btn btn-default" ng-click="reloadList()" type="button" value="查询">
+                订单编号:<input type="text" ng-model="searchEntity.orderId">  <input class="btn btn-default" ng-click="reloadList()" type="button" value="查询">
             </div>
         </div>
         <!--工具栏/-->
@@ -46,7 +46,8 @@
         <table id="dataList" class="table table-bordered table-striped table-hover dataTable">
             <thead>
             <tr>
-
+                <th class="" style="padding-right:0px">
+                </th>
                 <th class="sorting_asc">订单编号</th>
                 <th class="sorting">商家名称</th>
                 <th class="sorting">交易金额</th>
@@ -60,17 +61,17 @@
             </thead>
             <tbody>
             <tr ng-repeat="entity in list">
-                <td><input  ng-click="updateSelection($event,entity.id)"></td>
+                <td>{{entity.order_id}}</td>
+                <td>{{entity.orderId}}</td>
                 <td>{{entity.id}}</td>
                 <td>{{entity.item_id}}</td>
                 <td>{{entity.id}}</td>
                 <td>{{entity.item_id}}</td>
                 <td>{{entity.id}}</td>
-                <td>{{entity.item_id}}</td>
-                <td>{{entity.id}}</td>
-
-                <td class="text-center">
-                    <button type="button" class="btn bg-olive btn-xs" ng-click="findById(entity.id)" data-toggle="modal" data-target="#editModal"  >修改</button>
+                <td>
+                    <span>
+		            	{{status[entity.brStatus]}}
+                    </span>
                 </td>
             </tr>
 
@@ -85,8 +86,7 @@
     <tm-pagination conf="paginationConf"></tm-pagination>
 
 </div>
-{{selectIds}}
-<!-- /.box-body -->
+
 
 <!-- 编辑窗口 -->
 <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
