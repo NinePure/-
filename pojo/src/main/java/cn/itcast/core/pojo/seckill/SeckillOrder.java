@@ -8,6 +8,16 @@ public class SeckillOrder implements Serializable {
     /**
      * 主键
      */
+    private SeckillGoods seckillGoods;
+
+    public SeckillGoods getSeckillGoods() {
+        return seckillGoods;
+    }
+
+    public void setSeckillGoods(SeckillGoods seckillGoods) {
+        this.seckillGoods = seckillGoods;
+    }
+
     private Long id;
 
     /**

@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE">
     <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
-    <title>待评价</title>
-     <link rel="icon" href="assets/img/favicon.ico">
+    <title>秒杀订单</title>
+    <link rel="icon" href="assets/img/favicon.ico">
 
     <link rel="stylesheet" type="text/css" href="css/webbase.css" />
     <link rel="stylesheet" type="text/css" href="css/pages-seckillOrder.css" />
@@ -25,7 +25,7 @@
 
 </head>
 
-<body class="hold-transition skin-red sidebar-mini" ng-app="pinyougou" ng-controller="ordersController" ng-init="searchEntity={status:'3'};showName()">
+<body class="hold-transition skin-red sidebar-mini" ng-app="pinyougou" ng-controller="ordersController" ng-init="searchStatus=1;showName()">
 <!-- 头部栏位 -->
 <!--页面顶部-->
 <div id="nav-bottom">
@@ -178,8 +178,8 @@
                         <dd><a href="home-order-pay.html" >待付款</a></dd>
                         <dd><a href="home-order-send.html"  >待发货</a></dd>
                         <dd><a href="home-order-receive.html" >待收货</a></dd>
-                        <dd><a href="home-order-evaluate.html" class="list-active">待评价</a></dd>
-                        <dd><a href="home-order-seckill.html">秒杀订单</a></dd>
+                        <dd><a href="home-order-evaluate.html">待评价</a></dd>
+                        <dd><a href="home-order-seckill.html" class="list-active">秒杀订单</a></dd>
                     </dl>
                     <dl>
                         <dt><i>·</i> 我的中心</dt>
@@ -221,46 +221,45 @@
 
                             <div class="choose-title">
                                 <label data-toggle="checkbox" class="checkbox-pretty ">
-                                    <input type="checkbox" checked="checked"><span>{{order.createTime}}　订单编号：{{order.orderId}}  店铺：{{order.sellerId}} <a>和我联系</a></span>
+                                    <input type="checkbox" checked="checked"><span>{{order.createTime}}　订单编号：{{order.id}}  店铺：{{order.sellerId}} <a>和我联系</a></span>
                                 </label>
                                 <a class="sui-btn btn-info share-btn">分享</a>
                             </div>
                             <table class="sui-table table-bordered order-datatable">
                                 <tbody>
-                                <tr ng-repeat="orderItem in order.orderItemList">
+                                <tr>
                                     <td width="35%">
-                                        <div class="typographic"><img src="{{orderItem.picPath}}" width="88" height="88"/>
-                                            <a href="#" class="block-text">{{orderItem.title}}</a>
-                                            <span class="guige">规格：{{orderItem.itemSpec}}</span>
+                                        <div class="typographic"><img src="{{order.seckillGoods.smallPic}}" width="88" height="88"/>
+                                            <a href="#" class="block-text">{{order.seckillGoods.title}}</a>
+                                            <span class="guige">规格：{{order.seckillGoods.introduction}}</span>
                                         </div>
                                     </td>
                                     <td width="5%" class="center">
                                         <ul class="unstyled">
                                             <li class="o-price">¥88888.00</li>
-                                            <li>¥{{orderItem.price}}</li>
+                                            <li>¥{{order.seckillGoods.costPrice}}</li>
                                         </ul>
                                     </td>
-                                    <td width="5%" class="center">{{orderItem.num}}</td>
                                     <td width="8%" class="center">
                                         <ul class="unstyled">
                                             <li>{{order.status==1?"已发货":""}}</li>
                                             <li><a>{{order.status==1?"退货/退款":""}}</a></li>
                                         </ul>
                                     </td>
-                                    <td width="10%" class="center" ng-if="$index==0" rowspan="{{order.orderItemList.length}}">
+                                    <td width="10%" class="center">
                                         <ul class="unstyled">
-                                            <li>￥{{order.payment}}</li>
+                                            <li>￥{{order.money}}</li>
                                             <li>（含运费：￥0.00）</li>
                                         </ul>
                                     </td>
 
-                                    <td width="10%" class="center" ng-if="$index==0" rowspan="{{order.orderItemList.length}}">
+                                    <td width="10%" class="center">
                                         <ul class="unstyled">
                                             <li>{{order.status==1?"买家已付款":"等待买家付款"}}</li>
                                             <li><a href="orderDetail.html" class="btn">订单详情 </a></li>
                                         </ul>
                                     </td>
-                                    <td width="10%" class="center" ng-if="$index==0" rowspan="{{order.orderItemList.length}}">
+                                    <td width="10%" class="center">
                                         <ul ng-if="order.status==1" class="unstyled">
                                             <li>还剩4天23时</li>
                                             <li><a href="#" class="sui-btn btn-info">确认收货</a></li>

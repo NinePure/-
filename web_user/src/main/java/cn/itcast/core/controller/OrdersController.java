@@ -1,8 +1,8 @@
 package cn.itcast.core.controller;
 
 import cn.itcast.core.pojo.entity.PageResult;
-import cn.itcast.core.pojo.good.Goods;
 import cn.itcast.core.pojo.order.Order;
+import cn.itcast.core.pojo.seckill.SeckillOrder;
 import cn.itcast.core.service.OrderService;
 import com.alibaba.dubbo.config.annotation.Reference;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,6 +22,13 @@ public class OrdersController {
         String userName = SecurityContextHolder.getContext().getAuthentication().getName();
         order.setUserId(userName);
         PageResult<Order> pageResult = orderService.searchByUserId(String.valueOf(page), String.valueOf(rows), order);
+        return pageResult;
+    }
+    @RequestMapping("/searchSec")
+    public PageResult searchSec(@RequestBody SeckillOrder seckillOrder, Integer page, Integer rows) {
+        String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+        seckillOrder.setUserId(userName);
+        PageResult<SeckillOrder> pageResult = orderService.searchSecByUserId(String.valueOf(page), String.valueOf(rows), seckillOrder);
         return pageResult;
     }
 }

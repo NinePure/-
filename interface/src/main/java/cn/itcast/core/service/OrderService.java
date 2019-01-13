@@ -1,11 +1,10 @@
 package cn.itcast.core.service;
 
 import cn.itcast.core.pojo.entity.PageResult;
-import cn.itcast.core.pojo.entity.Result;
 import cn.itcast.core.pojo.entity.SellMoney;
 import cn.itcast.core.pojo.log.PayLog;
 import cn.itcast.core.pojo.order.Order;
-import org.springframework.web.bind.annotation.RequestBody;
+import cn.itcast.core.pojo.seckill.SeckillOrder;
 
 import java.util.Date;
 
@@ -24,4 +23,6 @@ public interface OrderService {
     PageResult<SellMoney> findSellMoney(String page, String rows, Date startTime, Date endTime, String name);
 
     void updateShippingStatus(Order order);
+
+    PageResult<SeckillOrder> searchSecByUserId(String page, String rows, SeckillOrder seckillOrder);
 }

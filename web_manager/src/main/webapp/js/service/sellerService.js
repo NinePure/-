@@ -39,8 +39,6 @@ app.service('sellerService',function($http){
         return $http.get('/goods/excelGoods.do');
     }
 
-
-
     //订单导出
     this.order=function(){
         return $http.get('/order/excelOrder.do');

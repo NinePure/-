@@ -14,12 +14,22 @@ app.controller('ordersController' ,function($scope,$controller,ordersService,log
     $scope.searchEntity={};//定义搜索对象
     //搜索
     $scope.search=function(page,rows){
-    	ordersService.search(page,rows,$scope.searchEntity).success(
-    		function(response){
-    			$scope.list=response.rows;
-    			$scope.paginationConf.totalItems=response.total;//更新总记录数
-    		}
-    	);
+        if ($scope.searchStatus == 1) {
+            ordersService.searchSec(page,rows,$scope.searchEntity).success(
+                function(response){
+                    $scope.list=response.rows;
+                    $scope.paginationConf.totalItems=response.total;//更新总记录数
+                }
+            );
+        } else {
+            ordersService.search(page,rows,$scope.searchEntity).success(
+                function(response){
+                    $scope.list=response.rows;
+                    $scope.paginationConf.totalItems=response.total;//更新总记录数
+                }
+            );
+        }
+
     }
 
 

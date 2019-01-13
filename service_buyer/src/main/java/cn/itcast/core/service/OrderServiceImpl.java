@@ -6,6 +6,8 @@ import cn.itcast.core.dao.item.ItemDao;
 import cn.itcast.core.dao.log.PayLogDao;
 import cn.itcast.core.dao.order.OrderDao;
 import cn.itcast.core.dao.order.OrderItemDao;
+import cn.itcast.core.dao.seckill.SeckillGoodsDao;
+import cn.itcast.core.dao.seckill.SeckillOrderDao;
 import cn.itcast.core.pojo.entity.BuyerCart;
 import cn.itcast.core.pojo.entity.PageResult;
 import cn.itcast.core.pojo.entity.SellMoney;
@@ -19,13 +21,14 @@ import cn.itcast.core.pojo.order.Order;
 import cn.itcast.core.pojo.order.OrderItem;
 import cn.itcast.core.pojo.order.OrderItemQuery;
 import cn.itcast.core.pojo.order.OrderQuery;
+import cn.itcast.core.pojo.seckill.SeckillGoods;
+import cn.itcast.core.pojo.seckill.SeckillOrder;
 import cn.itcast.core.util.Constants;
 import cn.itcast.core.util.IdWorker;
 import com.alibaba.dubbo.config.annotation.Service;
 import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import org.opensaml.xml.signature.P;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.transaction.annotation.Transactional;
@@ -62,6 +65,12 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private ItemDao itemDao;
+
+    @Autowired
+    private SeckillOrderDao seckillOrderDao;
+
+    @Autowired
+    private SeckillGoodsDao seckillGoodsDao;
 
     @Override
     public void add(Order order) {
@@ -302,6 +311,20 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void updateShippingStatus(Order order) {
         orderDao.updateByPrimaryKeySelective(order);
+    }
+
+    @Override
+    public PageResult<SeckillOrder> searchSecByUserId(String page, String rows, SeckillOrder seckillOrder) {
+        PageHelper.startPage(Integer.parseInt(page), Integer.parseInt(rows));
+        List<SeckillOrder> seckillOrders = seckillOrderDao.selectByExample(null);
+        for (SeckillOrder order : seckillOrders) {
+            Long seckillId = order.getSeckillId();
+            SeckillGoods seckillGoods = seckillGoodsDao.selectByPrimaryKey(seckillId);
+            order.setSeckillGoods(seckillGoods);
+        }
+        Page<SeckillOrder> seckillOrderPage = (Page<SeckillOrder>) seckillOrders;
+        return new PageResult<>(seckillOrderPage.getTotal(), seckillOrderPage.getResult());
+
     }
 
 }

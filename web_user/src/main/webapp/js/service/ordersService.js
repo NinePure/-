@@ -28,7 +28,11 @@ app.service('ordersService',function($http){
 	//搜索
 	this.search=function(page,rows,searchEntity){
 		return $http.post('../orders/search.do?page='+page+"&rows="+rows, searchEntity);
-	}    
+	}
+	//搜索
+	this.searchSec=function(page,rows,searchEntity){
+		return $http.post('../orders/searchSec.do?page='+page+"&rows="+rows, searchEntity);
+	}
 	//
 	// this.updateStatus = function(ids,status){
 	// 	return $http.get('../goods/updateStatus.do?ids='+ids+"&status="+status);
