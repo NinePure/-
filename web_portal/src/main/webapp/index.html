@@ -23,7 +23,7 @@
    
 </head>
 
-<body ng-app="pinyougou" ng-controller="contentController" ng-init="findByCategoryId(1)">
+<body ng-app="pinyougou" ng-controller="contentController" ng-init="findByCategoryId(1);findByCategoryId(4);findByCategoryId(5)">
 	<!-- 头部栏位 -->
 	<!--页面顶部-->
 <div id="nav-bottom">
@@ -34,7 +34,7 @@
 				<div class="shortcut">
 					<ul class="fl">
 						<li class="f-item">品优购欢迎您！</li>
-						<li class="f-item">请<a href="login/cas" target="_blank">登录</a>　<span><a href="register.html" target="_blank">免费注册</a></span></li>
+						<li class="f-item">请<a href="cas/login" target="_blank">登录</a>　<span><a href="register.html" target="_blank">免费注册</a></span></li>
 					</ul>
 					<ul class="fr">
 						<li class="f-item">我的订单</li>
@@ -902,16 +902,21 @@
 									<li data-target="#floorCarousel" data-slide-to="2"></li>
 								</ol>
 								<div class="carousel-inner">
-									<div class="active item">
-										<img src="img/floor-1-b01.png">
-									</div>
-									<div class="item">
-										<img src="img/floor-1-b02.png">
-									</div>
-									<div class="item">
-										<img src="img/floor-1-b03.png">
+									<div class="{{$index==0?'active':''}} item" ng-repeat="item in contentList[4]">
+										<a href="{{item.url}}"><img src="{{item.pic}}"  width="326" height="360"/></a>
 									</div>
 								</div>
+								<!--<div class="carousel-inner">-->
+									<!--<div class="active item">-->
+										<!--<img src="img/floor-1-b01.png">-->
+									<!--</div>-->
+									<!--<div class="item">-->
+										<!--<img src="img/floor-1-b02.png">-->
+									<!--</div>-->
+									<!--<div class="item">-->
+										<!--<img src="img/floor-1-b03.png">-->
+									<!--</div>-->
+								<!--</div>-->
 								<a href="#floorCarousel" data-slide="prev" class="carousel-control left">‹</a>
 								<a href="#floorCarousel" data-slide="next" class="carousel-control right">›</a>
 							</div>
@@ -1012,16 +1017,21 @@
 									<li data-target="#floorCarousell" data-slide-to="2"></li>
 								</ol>
 								<div class="carousel-inner">
-									<div class="active item">
-										<img src="img/floor-1-b01.png">
-									</div>
-									<div class="item">
-										<img src="img/floor-1-b02.png">
-									</div>
-									<div class="item">
-										<img src="img/floor-1-b03.png">
+									<div class="{{$index==0?'active':''}} item" ng-repeat="item in contentList[5]">
+										<a href="{{item.url}}"><img src="{{item.pic}}"  width="326" height="360"/></a>
 									</div>
 								</div>
+								<!--<div class="carousel-inner">-->
+									<!--<div class="active item">-->
+										<!--<img src="img/floor-1-b01.png">-->
+									<!--</div>-->
+									<!--<div class="item">-->
+										<!--<img src="img/floor-1-b02.png">-->
+									<!--</div>-->
+									<!--<div class="item">-->
+										<!--<img src="img/floor-1-b03.png">-->
+									<!--</div>-->
+								<!--</div>-->
 								<a href="#floorCarousell" data-slide="prev" class="carousel-control left">‹</a>
 								<a href="#floorCarousell" data-slide="next" class="carousel-control right">›</a>
 							</div>
@@ -1229,27 +1239,51 @@
 	<div id="floor-index" class="floor-index">
 		<ul>
 			<li>
-				<a class="num" href="javascript:;" style="display: none;">1F</a>
-				<a class="word" href="javascript;;" style="display: block;">家用电器</a>
+				<a class="num" href="javascript:;">1F</a>
+				<a class="word" href="javascript:;">家用电器</a>
 			</li>
 			<li>
-				<a class="num" href="javascript:;" style="display: none;">2F</a>
-				<a class="word" href="javascript;;" style="display: block;">手机通讯</a>
+				<a class="num" href="javascript:;">2F</a>
+				<a class="word" href="javascript:;">手机通讯</a>
+			</li>
+			<!--<li>
+				<a class="num" href="javascript:;" style="display: none;">3F</ a>
+				<a class="word" href="javascript;;" style="display: block;">电脑办公</ a>
 			</li>
 			<li>
-				<a class="num" href="javascript:;" style="display: none;">3F</a>
-				<a class="word" href="javascript;;" style="display: block;">电脑办公</a>
+				<a class="num" href="javascript:;" style="display: none;">4F</ a>
+				<a class="word" href="javascript;;" style="display: block;">家居家具</ a>
 			</li>
 			<li>
-				<a class="num" href="javascript:;" style="display: none;">4F</a>
-				<a class="word" href="javascript;;" style="display: block;">家居家具</a>
-			</li>
-			<li>
-				<a class="num" href="javascript:;" style="display: none;">5F</a>
-				<a class="word" href="javascript;;" style="display: block;">运动户外</a>
-			</li>
+				<a class="num" href="javascript:;" style="display: none;">5F</ a>
+				<a class="word" href="javascript;;" style="display: block;">运动户外</ a>
+			</li>-->
 		</ul>
 	</div>
+	<!--<div id="floor-index" class="floor-index">-->
+		<!--<ul>-->
+			<!--<li>-->
+				<!--<a class="num" href="javascript:;" style="display: none;">1F</a>-->
+				<!--<a class="word" href="javascript;;" style="display: block;">家用电器</a>-->
+			<!--</li>-->
+			<!--<li>-->
+				<!--<a class="num" href="javascript:;" style="display: none;">2F</a>-->
+				<!--<a class="word" href="javascript;;" style="display: block;">手机通讯</a>-->
+			<!--</li>-->
+			<!--<li>-->
+				<!--<a class="num" href="javascript:;" style="display: none;">3F</a>-->
+				<!--<a class="word" href="javascript;;" style="display: block;">电脑办公</a>-->
+			<!--</li>-->
+			<!--<li>-->
+				<!--<a class="num" href="javascript:;" style="display: none;">4F</a>-->
+				<!--<a class="word" href="javascript;;" style="display: block;">家居家具</a>-->
+			<!--</li>-->
+			<!--<li>-->
+				<!--<a class="num" href="javascript:;" style="display: none;">5F</a>-->
+				<!--<a class="word" href="javascript;;" style="display: block;">运动户外</a>-->
+			<!--</li>-->
+		<!--</ul>-->
+	<!--</div>-->
 	<!--侧栏面板开始-->
 <div class="J-global-toolbar">
 	<div class="toolbar-wrap J-wrap">

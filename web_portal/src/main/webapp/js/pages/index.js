@@ -21,38 +21,48 @@ $(function() {
 });
 
 /*楼层导航*/
-function scrollFloorView(){
-	var ling = $(document).scrollTop(); //获得窗口滚动上去的距离	
+function scrollFloorView(floorToTopH){       //楼层导航显示与隐藏
+	var ling = $(document).scrollTop();      //获得窗口滚动上去的距离	
 	if(ling > 1200) {
-		$("#floor-index").show(); //如果滚动的距离大于1200，滚动框显示出来
-	}
-	if(1200 < ling && ling < 1600) { //第一层的数字隐藏，文字显示，其他兄弟元素的li数字显示，文字隐藏
-		$("#floor-index ul li").eq(0).find(".num").hide().siblings(".word").css("display", "block");
-		$("#floor-index ul li").eq(0).siblings("li").find(".num").css("display", "block").siblings(".word").hide();
-	} else if(ling < 1800) {
-		$("#floor-index ul li").eq(1).find(".num").hide().siblings(".word").css("display", "block");
-		$("#floor-index ul li").eq(1).siblings("li").find(".num").css("display", "block").siblings(".word").hide();
-	}
-	if(ling > 2500 || ling < 1200) {
+		$("#floor-index").show();            //如果滚动的距离大于1200，滚动框显示出来
+		drawFloorNav(floorToTopH);
+	}else if(ling < 1200) {
 		$("#floor-index").hide();
-	}
+	};
+}
+function drawFloorNav(floorToTopH){          //绘制导航
+	var scrollTop = $(document).scrollTop() || $('body').scrollTop();
+	var x = Math.floor((scrollTop - floorToTopH)/426);
+	if(scrollTop - floorToTopH >= 0){
+		console.log('1' + parseFloat(x));
+		$('#floor-index li').eq(x).addClass('active').siblings().removeClass('active');
+	}else{
+		$('#floor-index li').eq(0).removeClass('active');
+	};
 }
 $(function() {
+	var floorToTopH = $('#floor-1').offset().top || 1613;   //楼层开始距离文档顶部的距离
 	scrollFloorView();
 	$(window).scroll(function() {
-		scrollFloorView();
+		scrollFloorView(floorToTopH);
 	});
+	$('#floor-index ul').on('click','li',function(){
+		var top = parseFloat(floorToTopH + $(this).index()*426);
+		$('html,body,document').animate({scrollTop:top + 'px'}, 500,function(){
+			$(this).addClass('active').siblings().removeClass('active');
+		});
+	})
 });
 
 function resizeFloorView(){
 	if($(document.body).width() > 1200){
-			ele_width = $(document.body).width() - 1200;
-			ele_width = ele_width / 2 - 65;
-			$("#floor-index").css("left", ele_width + "px");
-		}
-		else{
-			$("#floor-index").css("left", "6px");
-		}
+		ele_width = $(document.body).width() - 1200;
+		ele_width = ele_width / 2 - 65;
+		$("#floor-index").css("left", ele_width + "px");
+	}
+	else{
+		$("#floor-index").css("left", "6px");
+	}
 }
 $(function() {
 	resizeFloorView();

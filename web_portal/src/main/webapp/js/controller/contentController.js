@@ -5,6 +5,12 @@ app.controller("contentController",function($scope,contentService){
 		contentService.findByCategoryId(categoryId).success(function(response){
 			$scope.contentList[categoryId] = response;
 		});
+        // contentService.findByCategoryId(4).success(function(response){
+        //     $scope.contentList[categoryId] = response;
+        // });
+        // contentService.findByCategoryId(5).success(function(response){
+        //     $scope.contentList[categoryId] = response;
+        // });
 	}
 	
 	//搜索,跳转到portal系统查询列表页面(传递参数）

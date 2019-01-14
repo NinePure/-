@@ -25,7 +25,7 @@
 
 </head>
 
-<body class="hold-transition skin-red sidebar-mini" ng-app="pinyougou" ng-controller="ordersController" ng-init="searchEntity={status:'3'};showName()">
+<body class="hold-transition skin-red sidebar-mini" ng-app="pinyougou" ng-controller="ordersController" ng-init="searchEntity={status:'2'};showName()">
 <!-- 头部栏位 -->
 <!--页面顶部-->
 <div id="nav-bottom">
@@ -243,8 +243,8 @@
                                     <td width="5%" class="center">{{orderItem.num}}</td>
                                     <td width="8%" class="center">
                                         <ul class="unstyled">
-                                            <li>{{order.status==1?"已发货":""}}</li>
-                                            <li><a>{{order.status==1?"退货/退款":""}}</a></li>
+                                            <li>{{order.status==0?"":(order.status==3?"已发货":"未发货")}}</li>
+                                            <li><a>{{order.status==0?"":"退货/退款"}}</a></li>
                                         </ul>
                                     </td>
                                     <td width="10%" class="center" ng-if="$index==0" rowspan="{{order.orderItemList.length}}">
@@ -261,9 +261,13 @@
                                         </ul>
                                     </td>
                                     <td width="10%" class="center" ng-if="$index==0" rowspan="{{order.orderItemList.length}}">
-                                        <ul ng-if="order.status==1" class="unstyled">
+                                        <ul ng-if="order.status==3" class="unstyled">
                                             <li>还剩4天23时</li>
                                             <li><a href="#" class="sui-btn btn-info">确认收货</a></li>
+                                        </ul>
+                                        <ul ng-if="order.status==1" class="unstyled">
+                                            <li></li>
+                                            <li><a href="#" class="sui-btn btn-info">提醒发货</a></li>
                                         </ul>
                                         <ul ng-if="order.status==0" class="unstyled">
                                             <li><a href="http://localhost:8080/getOrderInfo.html" class="sui-btn btn-info">立即付款</a></li>

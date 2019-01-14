@@ -24,6 +24,7 @@
 		<!-- 匿名角色 IS_AUTHENTICATED_ANONYMOUSLY -->
 		<intercept-url pattern="/cart/*.do" access="IS_AUTHENTICATED_ANONYMOUSLY"></intercept-url> 
 		<intercept-url pattern="/itemsearch/*.do" access="IS_AUTHENTICATED_ANONYMOUSLY"></intercept-url>
+		<intercept-url pattern="/content/*.do" access="IS_AUTHENTICATED_ANONYMOUSLY"></intercept-url>
         <!-- 拦截除了放行的所有请求, 必须拥有ROLE_USER权限才可以继续访问-->
         <intercept-url pattern="/**" access="ROLE_USER"/>   
         <csrf disabled="true"/>  

@@ -6,9 +6,19 @@ import java.util.Date;
 import java.util.List;
 
 public class Order implements Serializable {
+    public String getOrderIdStr() {
+        return orderIdStr;
+    }
+
+    public void setOrderIdStr(String orderIdStr) {
+        this.orderIdStr = orderIdStr;
+    }
+
     /**
      * 订单id
      */
+
+    private String orderIdStr;
 
     private Long orderId;
 

@@ -204,6 +204,7 @@ public class OrderServiceImpl implements OrderService {
         if (result != null && result.size() > 0) {
             for (Order order1 : result) {
                 Long orderId = order1.getOrderId();
+                order1.setOrderIdStr(String.valueOf(orderId));
                 OrderItemQuery orderItemQuery = new OrderItemQuery();
                 OrderItemQuery.Criteria criteria1 = orderItemQuery.createCriteria();
                 criteria1.andOrderIdEqualTo(orderId);
@@ -232,6 +233,7 @@ public class OrderServiceImpl implements OrderService {
         if (result != null && result.size() > 0) {
             for (Order order1 : result) {
                 Long orderId = order1.getOrderId();
+                order1.setOrderIdStr(String.valueOf(orderId));
                 OrderItemQuery orderItemQuery = new OrderItemQuery();
                 OrderItemQuery.Criteria criteria1 = orderItemQuery.createCriteria();
                 criteria1.andOrderIdEqualTo(orderId);

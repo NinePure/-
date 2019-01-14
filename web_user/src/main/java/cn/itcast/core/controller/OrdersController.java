@@ -5,6 +5,7 @@ import cn.itcast.core.pojo.order.Order;
 import cn.itcast.core.pojo.seckill.SeckillOrder;
 import cn.itcast.core.service.OrderService;
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.alibaba.fastjson.JSONArray;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,10 +26,11 @@ public class OrdersController {
         return pageResult;
     }
     @RequestMapping("/searchSec")
-    public PageResult searchSec(@RequestBody SeckillOrder seckillOrder, Integer page, Integer rows) {
+    public Object searchSec(@RequestBody SeckillOrder seckillOrder, Integer page, Integer rows) {
         String userName = SecurityContextHolder.getContext().getAuthentication().getName();
         seckillOrder.setUserId(userName);
         PageResult<SeckillOrder> pageResult = orderService.searchSecByUserId(String.valueOf(page), String.valueOf(rows), seckillOrder);
-        return pageResult;
+        Object o = JSONArray.toJSON(pageResult);
+        return o;
     }
 }
