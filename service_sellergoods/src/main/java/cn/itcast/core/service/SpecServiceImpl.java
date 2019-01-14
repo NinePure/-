@@ -76,6 +76,39 @@ public class SpecServiceImpl implements SpecService {
     }
 
     @Override
+    public Boolean addWithJudge(SpecEntity spec) {
+//        更据新加入的规格名从数据库查询数据
+        SpecificationQuery query = new SpecificationQuery();
+        SpecificationQuery.Criteria criteria = query.createCriteria();
+        criteria.andSpecNameEqualTo(spec.getSpecification().getSpecName());
+        List<Specification> specificationList = specDao.selectByExample(query);
+//        判断是否为空
+        if (specificationList.size()==0){
+//        获取状态修改为0
+            spec.getSpecification().setSpecStatus("0");
+            //1. 保存规格对象
+            specDao.insertSelective(spec.getSpecification());
+//            遍历集合获取新加入数据的id
+            List<Specification> list = specDao.selectByExample(query);
+            for (Specification specification : list) {
+                Long spcid = specification.getId();
+                //2. 保存规格选项集合对象
+                if (spec.getSpecificationOptionList() != null) {
+                    for (SpecificationOption option : spec.getSpecificationOptionList()) {
+                        //设置规格选项外键
+                        option.setSpecId(spcid);
+                        //保存规格选项
+                        optionDao.insertSelective(option);
+                    }
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+
+    @Override
     public SpecEntity findOne(Long id) {
         //1. 根据规格id查询规格实体
         Specification spec = specDao.selectByPrimaryKey(id);

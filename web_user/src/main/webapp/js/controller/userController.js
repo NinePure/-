@@ -22,7 +22,6 @@ app.controller('userController' ,function($scope,$controller   ,userService,logi
         );
     };
     $scope.setDefault = function(id) {
-        alert(aaa);
         // 调用userService的方法完成文件的上传
         userService.setDefault(id).success(
             function (response) {

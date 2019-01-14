@@ -91,7 +91,7 @@ app.controller('sellerController' ,function($scope,$controller   ,sellerService)
     $scope.goods=function(){
         sellerService.goods().success(
             function(response){
-                $scope.list=response;
+                alert(response.message);
             }
         );
     }
@@ -100,7 +100,7 @@ app.controller('sellerController' ,function($scope,$controller   ,sellerService)
     $scope.order=function(){
         sellerService.order().success(
             function(response){
-                $scope.list=response;
+                alert(response.message);
             }
         );
     }

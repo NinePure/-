@@ -1,6 +1,19 @@
 app.controller('payController' ,function($scope ,$location,payService){
-	
-	
+
+
+    $scope.close=function(){
+        payService.closePayOrder($scope.out_trade_no).success(
+            function(response){
+                if(response.success){
+                    alert(response.message);
+                    location.href="seckill-index.html";
+                }else{
+                    alert(response.message);
+                }
+            }
+        );
+    }
+
 	$scope.createNative=function(){
 		payService.createNative().success(
 			function(response){

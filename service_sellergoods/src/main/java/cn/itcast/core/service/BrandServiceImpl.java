@@ -96,8 +96,9 @@ public class BrandServiceImpl implements BrandService {
         BrandQuery.Criteria criteria = query.createCriteria();
         criteria.andNameEqualTo(brand.getName());
         List<Brand> brandList = brandDao.selectByExample(query);
+        Integer size =  brandList.size();
 //        封装品牌数据
-        if (brandList==null){
+        if (brandList.size() == 0){
 //            获取品牌名
             brand.setName(brand.getName());
 //            更据品牌名获取汉字的首字母并大写

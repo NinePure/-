@@ -36,4 +36,27 @@ public class TemplateController {
         return list;
     }
 
+    //    模板申请方法
+    @RequestMapping("/add")
+    public Result add(@RequestBody TypeTemplate template) {
+        try {
+//                修改模板状态为0
+            template.setTemStatus("0");
+            templateService.add(template);
+            return new Result(true, "保存成功!");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Result(false, "保存失败!");
+        }
+    }
+
+    //        模板高级查询
+    @RequestMapping("/search")
+    public PageResult search(@RequestBody TypeTemplate template, Integer page, Integer rows) {
+        PageResult result = templateService.findPage(template, page, rows);
+        return result;
+    }
+
+
+
 }

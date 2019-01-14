@@ -13,6 +13,8 @@ public interface SpecService {
 
     public void add(SpecEntity spec);
 
+    Boolean addWithJudge(SpecEntity spec);
+
     public  SpecEntity findOne(Long id);
 
     public void update(SpecEntity specEntity);

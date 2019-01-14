@@ -37,7 +37,7 @@ app.controller('specificationController' ,function($scope,$controller   ,specifi
 		// if($scope.entity.specification.id!=null){//如果有ID
 		// 	serviceObject=specificationService.update( $scope.entity ); //修改
 		// }else{
-		alert($scope.entity)
+		// alert($scope.entity)
 			serviceObject=specificationService.add( $scope.entity  );//增加 
 		// }
 		serviceObject.success(

@@ -36,11 +36,11 @@ app.service('sellerService',function($http){
 
     //商品导出
     this.goods=function(){
-        return $http.get('/goods/excelGoods.do');
+        return $http.get('../goodsExcel/excelGoods.do');
     }
 
     //订单导出
     this.order=function(){
-        return $http.get('/order/excelOrder.do');
+        return $http.get('../orderExcel/excelOrder.do');
     }
 });

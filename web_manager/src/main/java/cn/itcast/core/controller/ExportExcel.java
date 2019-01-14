@@ -4,6 +4,7 @@ import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.IndexedColors;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -114,14 +115,18 @@ public class ExportExcel {
 
 
                 if (workbook != null) {
-                    try {
-                        FileOutputStream out = new FileOutputStream(
-                                "e:/img/" +"商品Excel表"+ new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()).toString() + ".xls");
-                        workbook.write(out);
-                        out.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                    File dir = new File("e:/img/");
+                    if (!dir.exists()) {
+                        dir.mkdirs();
                     }
+                        try {
+                            FileOutputStream out = new FileOutputStream(
+                                    "e:/img/" + "商品Excel表" + new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()).toString() + ".xls");
+                            workbook.write(out);
+                            out.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                 }
 
             } catch (Exception e) {

@@ -4,7 +4,6 @@ import cn.itcast.core.pojo.entity.PageResult;
 import cn.itcast.core.pojo.entity.Result;
 import cn.itcast.core.pojo.entity.SpecEntity;
 import cn.itcast.core.pojo.specification.Specification;
-import cn.itcast.core.pojo.specification.SpecificationOption;
 import cn.itcast.core.service.SpecService;
 import com.alibaba.dubbo.config.annotation.Reference;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,12 +30,12 @@ public class SpecController {
      * @param rows
      * @return
      */
-//    @RequestMapping("/search")
-//    public PageResult search(@RequestBody Specification spec, Integer page, Integer rows) {
-//        PageResult result = specService.findPage(spec, page, rows);
-//        return result;
-//
-//    }
+    @RequestMapping("/search")
+    public PageResult search(@RequestBody Specification spec, Integer page, Integer rows) {
+        PageResult result = specService.findPage(spec, page, rows);
+        return result;
+
+    }
 
     /**
      * 添加保存规格
@@ -45,19 +44,14 @@ public class SpecController {
      */
     @RequestMapping("/add")
     public Result add(@RequestBody SpecEntity spec){
-        String specName = spec.getSpecification().getSpecName();
-        List<SpecificationOption> specificationOptionList = spec.getSpecificationOptionList();
-        for (SpecificationOption option : specificationOptionList) {
-            System.out.println(option);
+
+        Boolean flag = specService.addWithJudge(spec);
+        if (flag) {
+            return new Result(true, "申请成功!");
         }
-        try {
-            specService.add(spec);
-            return new Result(true, "保存成功!");
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new Result(false, "保存失败!");
-        }
+        return new Result(false, "申请失败用户名已经存在!");
     }
+
 
 //    /**
 //     * 规格回显
@@ -102,9 +96,9 @@ public class SpecController {
 //        }
 //    }
 //
-//    @RequestMapping("/selectOptionList")
-//    public List<Map> selectOptionList() {
-//        List<Map> maps = specService.selectOptionList();
-//        return maps;
-//    }
+    @RequestMapping("/selectOptionList")
+    public List<Map> selectOptionList() {
+        List<Map> maps = specService.selectOptionList();
+        return maps;
+    }
 }
